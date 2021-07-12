@@ -1,0 +1,293 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\MiniX.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\MiniXApp.ICO"
+IDI_STOPSIGN            ICON                    "res\\STOP32.ICO"
+IDI_RAD32               ICON                    "res\\RAD32.ico"
+IDI_EXIT32              ICON                    "res\\EXIT32.ico"
+IDI_AMPTEK              ICON                    "res\\Amptek.ico"
+IDI_LOCKOPEN32          ICON                    "res\\LOCKOPEN32.ICO"
+IDI_LOCKRESTORED32      ICON                    "res\\LOCKRESTORED32.ICO"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 202, 79
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Amptek Mini-X"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,7,10,21,20
+    DEFPUSHBUTTON   "OK",IDOK,76,57,50,14,WS_GROUP
+    ICON            IDI_AMPTEK,IDC_STATIC,7,32,21,20
+    LTEXT           "Amptek Mini-X Version 1.0",IDC_FILEDESCRIPTION,35,11,
+                    148,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2008 Amptek Inc.",IDC_LEGALCOPYRIGHT,35,
+                    31,130,8
+    LTEXT           "Static",IDC_lblBuildDate,75,41,45,8
+    LTEXT           "Static",IDC_lblBuildTime,120,41,55,8
+    LTEXT           "Build Date:",IDC_STATIC,35,41,40,8
+    LTEXT           "Version ",IDC_FILEDESCRIPTION2,35,21,31,8,SS_NOPREFIX
+    LTEXT           "Version ",IDC_PRODUCTVERSION,70,21,52,8,SS_NOPREFIX
+END
+
+IDD_MINIXAP_DIALOG DIALOGEX 0, 0, 301, 238
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
+    WS_SYSMENU
+EXSTYLE WS_EX_APPWINDOW
+CAPTION "Mini-X Controller"
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "E&xit",IDOK,"Button",BS_OWNERDRAW | WS_TABSTOP,177,124,
+                    106,28
+    EDITTEXT        IDC_STATUS_EDIT,7,217,285,14,ES_CENTER | ES_AUTOHSCROLL | 
+                    ES_READONLY
+    DEFPUSHBUTTON   "Start Amptek Mini-X",IDC_START_MINIX_CONTROLLER,82,7,
+                    134,17,NOT WS_TABSTOP
+    GROUPBOX        "Set/Monitor High Voltage and Current",
+                    IDC_HIGHVOLTAGEANDCURRENTGROUP,7,64,285,92
+    LTEXT           "",IDC_HIGHVOLTAGEMONITORTEXT,107,125,46,13,SS_SUNKEN
+    LTEXT           "",IDC_CURRENTMONITORTEXT,107,140,46,13,SS_SUNKEN
+    RTEXT           "High Voltage Monitor",IDC_HIGHVOLTAGEMONITORLABEL,21,
+                    125,71,13
+    RTEXT           "Current Monitor",IDC_CURRENTMONITORLABEL,19,140,73,13
+    EDITTEXT        IDC_SETHIGHVOLTAGECONTROLEDIT,107,88,45,14,
+                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_SETCURRENTCONTROLEDIT,107,105,45,14,ES_AUTOHSCROLL
+    LTEXT           "kV",IDC_HIGHVOLTAGECONTROLLABEL,202,88,11,13
+    LTEXT           "uA",IDC_CURRENTCONTROLLABEL,202,105,10,13
+    CONTROL         "HV OFF",IDC_HV_OFF,"Button",BS_OWNERDRAW | WS_TABSTOP,
+                    218,72,65,22
+    CONTROL         "HV ON",IDC_HV_ON,"Button",BS_OWNERDRAW | WS_TABSTOP,217,
+                    99,66,22
+    CTEXT           "MIN",IDC_HIGHVOLTAGECONTROLLABEL2,158,75,22,13
+    CTEXT           "MAX",IDC_HIGHVOLTAGECONTROLLABEL3,177,75,22,13
+    CTEXT           "0",IDC_HIGHVOLTAGECONTROLMIN,158,88,22,13
+    CTEXT           "40",IDC_HIGHVOLTAGECONTROLMAX,177,88,22,13
+    CTEXT           "0",IDC_CURRENTCONTROLMIN,158,105,22,13
+    CTEXT           "50",IDC_CURRENTCONTROLMAX,177,105,22,13
+    CONTROL         136,IDC_STATIC,"Static",SS_BITMAP,7,156,127,57
+    CONTROL         133,IDC_STATIC_ISO_CURVE,"Static",SS_BITMAP,177,156,115,
+                    57,WS_EX_TRANSPARENT
+    CONTROL         134,IDC_STATIC,"Static",SS_BITMAP,7,7,61,28
+    CONTROL         135,IDC_STATIC,"Static",SS_BITMAP,227,7,65,28
+    PUSHBUTTON      "Set High Voltage and Current",
+                    IDC_SETHIGHVOLTAGEANDCURRENTBUTTON,29,90,71,28,
+                    BS_MULTILINE
+    CTEXT           "",IDC_TEMPERATURE_SENSOR,143,177,27,9
+    CTEXT           "Board\rTemp.°C",IDC_STATIC,137,159,38,16,0,
+                    WS_EX_TRANSPARENT
+    CTEXT           "",IDC_SERIAL_NUMBER,82,25,134,9
+    CTEXT           "",IDC_POWER_MW,142,203,28,12,SS_CENTERIMAGE,
+                    WS_EX_TRANSPARENT | WS_EX_STATICEDGE
+    ICON            IDI_RAD32,IDC_XRAY_ON_PIC,136,36,21,20,SS_CENTERIMAGE | 
+                    NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    CTEXT           "X-RAY ON",IDC_XRAY_ON_LABEL,129,56,40,8,NOT WS_VISIBLE,
+                    WS_EX_TRANSPARENT
+    CTEXT           "Static",IDC_OUT_OF_RANGE_LBL,30,73,124,13,
+                    SS_CENTERIMAGE | WS_BORDER,WS_EX_CLIENTEDGE
+    CTEXT           "Power mW",IDC_STATIC,136,193,39,10,0,WS_EX_TRANSPARENT
+    ICON            IDI_LOCKOPEN32,IDC_INTERLOCK_OPEN,261,41,20,20,
+                    SS_CENTERIMAGE | NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    ICON            IDI_LOCKRESTORED32,IDC_INTERLOCK_RESTORED,261,41,20,20,
+                    SS_CENTERIMAGE | NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    CTEXT           "INTERLOCK OPEN",IDC_INTERLOCK_OPEN_LABEL,170,41,86,9,
+                    NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    CTEXT           "INTERLOCK RESTORED",IDC_INTERLOCK_RESTORED_LABEL,170,53,
+                    86,9,NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    LTEXT           "kV",IDC_HIGHVOLTAGECONTROLLABEL4,157,126,11,8
+    LTEXT           "uA",IDC_CURRENTCONTROLLABEL2,157,142,10,8
+    CONTROL         146,IDC_STATIC_ISO_CURVE2,"Static",SS_BITMAP | NOT 
+                    WS_VISIBLE,177,157,115,57,WS_EX_TRANSPARENT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,8
+ PRODUCTVERSION 1,0,0,8
+ FILEFLAGSMASK 0x17L
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "Mini-X USB X-Ray Tube Controller 40kV, 50kV"
+            VALUE "CompanyName", "Amptek Inc."
+            VALUE "FileDescription", "Mini-X Controller Application"
+            VALUE "FileVersion", "1, 0, 0, 8"
+            VALUE "InternalName", "MiniXCtrl"
+            VALUE "LegalCopyright", "Copyright (C) 2005-2011"
+            VALUE "LegalTrademarks", "Mini-X"
+            VALUE "OriginalFilename", "MiniXCtrl.EXE"
+            VALUE "ProductName", "Mini-X "
+            VALUE "ProductVersion", "1, 0, 0, 8"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 195
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 72
+    END
+
+    IDD_MINIXAP_DIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 292
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 231
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_AMPTEK_LOGO         BITMAP                  "res\\AmptekLogoSM.bmp"
+IDB_MINI_X              BITMAP                  "res\\MiniXChartSM.bmp"
+IDB_AMPTEK_LOGO_SM      BITMAP                  "res\\AmptekLogoExSm.bmp"
+IDB_MINI_X_LOGO         BITMAP                  "res\\MiniXLogoSM.bmp"
+IDB_MINIX_HW_SM         BITMAP                  "res\\minixHWSM.bmp"
+IDB_MINI_X_50KV         BITMAP                  "res\\MiniXChartSM_50kV.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About MiniX..."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\MiniX.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
