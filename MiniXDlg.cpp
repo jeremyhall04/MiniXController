@@ -362,10 +362,6 @@ void CMiniXDlg::OnBnClickedStartMiniXController()
     indDisableMonitorCmds = true;
     GetDlgItem(IDC_START_MINIX_CONTROLLER)->EnableWindow(false);
 
-    //int msgResponse;
-    //msgResponse = AfxMessageBox("Sorry, no Mini-X is connected");
-    //GetDlgItem(IDC_START_MINIX_CONTROLLER)->EnableWindow(true);
-    //return;
     if (isMiniXDlg()) {
         SendMiniXCommand((byte)mxcStartMiniX);
         Sleep(100);
