@@ -23,6 +23,18 @@
 #define IDI_LOCKOPEN32                  142
 #define IDI_LOCKRESTORED32              143
 #define IDB_MINI_X_50KV                 146
+#define IDD_DIALOG1                     148
+#define IDB_BITMAP1                     150
+#define IDI_ICON3                       151
+#define IDD_DIALOG2                     152
+#define IDI_ICON5                       153
+#define IDI_ICON6                       154
+#define IDD_DIALOG3                     156
+#define IDB_BITMAP3                     158
+#define IDD_DIALOG4                     159
+#define IDD_DIALOG5                     161
+#define IDI_ICON7                       162
+#define IDB_BITMAP4                     163
 #define IDC_EDIT_SEL_OPEN               1002
 #define IDC_STATUS_EDIT                 1002
 #define IDC_BUTTON_CLOSEK0              1008
@@ -108,9 +120,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        148
+#define _APS_NEXT_RESOURCE_VALUE        164
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1096
+#define _APS_NEXT_CONTROL_VALUE         1098
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

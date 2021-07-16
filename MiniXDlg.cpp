@@ -23,6 +23,19 @@ COLORREF    crBkGndActive;
 COLORREF    crText; 
 COLORREF    crTextActive; 
 
+// JEREMY:
+class LabTimer : CMiniXDlg
+{
+public:
+    LabTimer(CMiniXDlg* dlg);
+};
+
+LabTimer::LabTimer(CMiniXDlg* dlg) {
+    
+    
+}
+
+
 
 // CAboutDlg dialog used for App About
 class CAboutDlg : public CDialog
@@ -232,8 +245,12 @@ BOOL CMiniXDlg::OnInitDialog()
     GetDlgItem(IDC_SETHIGHVOLTAGECONTROLEDIT)->SetWindowText("0");
 	GetDlgItem(IDC_SETCURRENTCONTROLEDIT)->SetWindowText("0");
 
-    GetDlgItem(IDC_HV_ON)->EnableWindow(false);
-	GetDlgItem(IDC_HV_OFF)->EnableWindow(false);
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    // Jeremy: Activating Buttons!
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    GetDlgItem(IDC_HV_ON)->EnableWindow(true);
+	GetDlgItem(IDC_HV_OFF)->EnableWindow(true);
 	GetDlgItem(IDC_SETHIGHVOLTAGEANDCURRENTBUTTON)->EnableWindow(false);
 
 	UpdateData(FALSE);
@@ -344,6 +361,11 @@ void CMiniXDlg::OnBnClickedStartMiniXController()
 
     indDisableMonitorCmds = true;
     GetDlgItem(IDC_START_MINIX_CONTROLLER)->EnableWindow(false);
+
+    //int msgResponse;
+    //msgResponse = AfxMessageBox("Sorry, no Mini-X is connected");
+    //GetDlgItem(IDC_START_MINIX_CONTROLLER)->EnableWindow(true);
+    //return;
     if (isMiniXDlg()) {
         SendMiniXCommand((byte)mxcStartMiniX);
         Sleep(100);
@@ -365,6 +387,7 @@ void CMiniXDlg::OnBnClickedStartMiniXController()
             GetDlgItem(IDC_SERIAL_NUMBER)->SetWindowText("");
         }
     }
+
     indDisableMonitorCmds = false;
 }
 
@@ -380,6 +403,14 @@ void CMiniXDlg::OnBnClickedHvOn()
             Sleep(100);
         }
     }
+
+    //msgResponse = AfxMessageBox("Turn X-RAY High Voltage ON?",MB_YESNO | MB_ICONQUESTION | MB_TOPMOST);
+
+    // Turn on timer
+    //LabTimer timer(dlg);
+    //theApp.dlg;
+    
+
     indDisableMonitorCmds = false;
 }
 
@@ -391,17 +422,27 @@ void CMiniXDlg::OnBnClickedHvOff()
         SendMiniXCommand((byte)mxcHVOff);
         Sleep(100);
     }
+
+    //GetDlgItem(IDC_HV_ON)->EnableWindow(true);
+
     indDisableMonitorCmds = false;
 }
 
+//Jeremy: clicking X to exit
 void CMiniXDlg::OnClose()
 {
+    int msgResponse;
+    msgResponse = AfxMessageBox("Sure you want to close?", MB_YESNO | MB_ICONQUESTION | MB_TOPMOST);
+    if (msgResponse == IDYES) {
+        DestroyWindow();
+    }
+
 	DestroyWindow();
 }
 
 void CMiniXDlg::OnCancel()
 {
-	DestroyWindow();
+    DestroyWindow();
 	//CDialog::OnCancel();	// don't use - failsafe must shutdown HV
 }
 
@@ -541,25 +582,3 @@ void CMiniXDlg::EnableMiniX_Commands(byte mxmEnabledCmds)
 	    GetDlgItem(IDC_SETHIGHVOLTAGEANDCURRENTBUTTON)->EnableWindow(indSetHVandCurrent);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

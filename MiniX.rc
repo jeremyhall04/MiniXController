@@ -13,13 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -67,12 +65,19 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDR_MAINFRAME           ICON                    "res\\MiniXApp.ICO"
+
 IDI_STOPSIGN            ICON                    "res\\STOP32.ICO"
+
 IDI_RAD32               ICON                    "res\\RAD32.ico"
+
 IDI_EXIT32              ICON                    "res\\EXIT32.ico"
+
 IDI_AMPTEK              ICON                    "res\\Amptek.ico"
+
 IDI_LOCKOPEN32          ICON                    "res\\LOCKOPEN32.ICO"
+
 IDI_LOCKRESTORED32      ICON                    "res\\LOCKRESTORED32.ICO"
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -87,10 +92,8 @@ BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,7,10,21,20
     DEFPUSHBUTTON   "OK",IDOK,76,57,50,14,WS_GROUP
     ICON            IDI_AMPTEK,IDC_STATIC,7,32,21,20
-    LTEXT           "Amptek Mini-X Version 1.0",IDC_FILEDESCRIPTION,35,11,
-                    148,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2008 Amptek Inc.",IDC_LEGALCOPYRIGHT,35,
-                    31,130,8
+    LTEXT           "Amptek Mini-X Version 1.0",IDC_FILEDESCRIPTION,35,11,148,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2008 Amptek Inc.",IDC_LEGALCOPYRIGHT,35,31,130,8
     LTEXT           "Static",IDC_lblBuildDate,75,41,45,8
     LTEXT           "Static",IDC_lblBuildTime,120,41,55,8
     LTEXT           "Build Date:",IDC_STATIC,35,41,40,8
@@ -99,73 +102,51 @@ BEGIN
 END
 
 IDD_MINIXAP_DIALOG DIALOGEX 0, 0, 301, 238
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "Mini-X Controller"
 FONT 8, "MS Sans Serif", 0, 0, 0x1
 BEGIN
-    CONTROL         "E&xit",IDOK,"Button",BS_OWNERDRAW | WS_TABSTOP,177,124,
-                    106,28
-    EDITTEXT        IDC_STATUS_EDIT,7,217,285,14,ES_CENTER | ES_AUTOHSCROLL | 
-                    ES_READONLY
-    DEFPUSHBUTTON   "Start Amptek Mini-X",IDC_START_MINIX_CONTROLLER,82,7,
-                    134,17,NOT WS_TABSTOP
-    GROUPBOX        "Set/Monitor High Voltage and Current",
-                    IDC_HIGHVOLTAGEANDCURRENTGROUP,7,64,285,92
+    CONTROL         "E&xit",IDOK,"Button",BS_OWNERDRAW | WS_TABSTOP,177,124,106,28
+    EDITTEXT        IDC_STATUS_EDIT,7,217,285,14,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY
+    DEFPUSHBUTTON   "Start Amptek Mini-X",IDC_START_MINIX_CONTROLLER,82,7,134,17,NOT WS_TABSTOP
+    GROUPBOX        "Set/Monitor High Voltage and Current",IDC_HIGHVOLTAGEANDCURRENTGROUP,7,64,285,92
     LTEXT           "",IDC_HIGHVOLTAGEMONITORTEXT,107,125,46,13,SS_SUNKEN
     LTEXT           "",IDC_CURRENTMONITORTEXT,107,140,46,13,SS_SUNKEN
-    RTEXT           "High Voltage Monitor",IDC_HIGHVOLTAGEMONITORLABEL,21,
-                    125,71,13
+    RTEXT           "High Voltage Monitor",IDC_HIGHVOLTAGEMONITORLABEL,21,125,71,13
     RTEXT           "Current Monitor",IDC_CURRENTMONITORLABEL,19,140,73,13
-    EDITTEXT        IDC_SETHIGHVOLTAGECONTROLEDIT,107,88,45,14,
-                    ES_AUTOHSCROLL
+    EDITTEXT        IDC_SETHIGHVOLTAGECONTROLEDIT,107,88,45,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_SETCURRENTCONTROLEDIT,107,105,45,14,ES_AUTOHSCROLL
     LTEXT           "kV",IDC_HIGHVOLTAGECONTROLLABEL,202,88,11,13
     LTEXT           "uA",IDC_CURRENTCONTROLLABEL,202,105,10,13
-    CONTROL         "HV OFF",IDC_HV_OFF,"Button",BS_OWNERDRAW | WS_TABSTOP,
-                    218,72,65,22
-    CONTROL         "HV ON",IDC_HV_ON,"Button",BS_OWNERDRAW | WS_TABSTOP,217,
-                    99,66,22
+    CONTROL         "HV OFF",IDC_HV_OFF,"Button",BS_OWNERDRAW | WS_TABSTOP,218,72,65,22
+    CONTROL         "HV ON",IDC_HV_ON,"Button",BS_OWNERDRAW | WS_TABSTOP,217,99,66,22
     CTEXT           "MIN",IDC_HIGHVOLTAGECONTROLLABEL2,158,75,22,13
     CTEXT           "MAX",IDC_HIGHVOLTAGECONTROLLABEL3,177,75,22,13
     CTEXT           "0",IDC_HIGHVOLTAGECONTROLMIN,158,88,22,13
     CTEXT           "40",IDC_HIGHVOLTAGECONTROLMAX,177,88,22,13
     CTEXT           "0",IDC_CURRENTCONTROLMIN,158,105,22,13
     CTEXT           "50",IDC_CURRENTCONTROLMAX,177,105,22,13
-    CONTROL         136,IDC_STATIC,"Static",SS_BITMAP,7,156,127,57
-    CONTROL         133,IDC_STATIC_ISO_CURVE,"Static",SS_BITMAP,177,156,115,
-                    57,WS_EX_TRANSPARENT
-    CONTROL         134,IDC_STATIC,"Static",SS_BITMAP,7,7,61,28
-    CONTROL         135,IDC_STATIC,"Static",SS_BITMAP,227,7,65,28
-    PUSHBUTTON      "Set High Voltage and Current",
-                    IDC_SETHIGHVOLTAGEANDCURRENTBUTTON,29,90,71,28,
-                    BS_MULTILINE
+    CONTROL         IDB_MINIX_HW_SM,IDC_STATIC,"Static",SS_BITMAP,7,156,127,57
+    CONTROL         IDB_BITMAP2,IDC_STATIC_ISO_CURVE,"Static",SS_BITMAP,177,156,115,57,WS_EX_TRANSPARENT
+    CONTROL         IDB_AMPTEK_LOGO_SM,IDC_STATIC,"Static",SS_BITMAP,7,7,61,28
+    CONTROL         IDB_MINI_X_LOGO,IDC_STATIC,"Static",SS_BITMAP,227,7,65,28
+    PUSHBUTTON      "Set High Voltage and Current",IDC_SETHIGHVOLTAGEANDCURRENTBUTTON,29,90,71,28,BS_MULTILINE
     CTEXT           "",IDC_TEMPERATURE_SENSOR,143,177,27,9
-    CTEXT           "Board\rTemp.°C",IDC_STATIC,137,159,38,16,0,
-                    WS_EX_TRANSPARENT
+    CTEXT           "Board\rTemp.°C",IDC_STATIC,137,159,38,16,0,WS_EX_TRANSPARENT
     CTEXT           "",IDC_SERIAL_NUMBER,82,25,134,9
-    CTEXT           "",IDC_POWER_MW,142,203,28,12,SS_CENTERIMAGE,
-                    WS_EX_TRANSPARENT | WS_EX_STATICEDGE
-    ICON            IDI_RAD32,IDC_XRAY_ON_PIC,136,36,21,20,SS_CENTERIMAGE | 
-                    NOT WS_VISIBLE,WS_EX_TRANSPARENT
-    CTEXT           "X-RAY ON",IDC_XRAY_ON_LABEL,129,56,40,8,NOT WS_VISIBLE,
-                    WS_EX_TRANSPARENT
-    CTEXT           "Static",IDC_OUT_OF_RANGE_LBL,30,73,124,13,
-                    SS_CENTERIMAGE | WS_BORDER,WS_EX_CLIENTEDGE
+    CTEXT           "",IDC_POWER_MW,142,203,28,12,SS_CENTERIMAGE,WS_EX_TRANSPARENT | WS_EX_STATICEDGE
+    ICON            IDI_RAD32,IDC_XRAY_ON_PIC,136,36,21,20,SS_CENTERIMAGE | NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    CTEXT           "X-RAY ON",IDC_XRAY_ON_LABEL,129,56,40,8,NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    CTEXT           "Static",IDC_OUT_OF_RANGE_LBL,30,73,124,13,SS_CENTERIMAGE | WS_BORDER,WS_EX_CLIENTEDGE
     CTEXT           "Power mW",IDC_STATIC,136,193,39,10,0,WS_EX_TRANSPARENT
-    ICON            IDI_LOCKOPEN32,IDC_INTERLOCK_OPEN,261,41,20,20,
-                    SS_CENTERIMAGE | NOT WS_VISIBLE,WS_EX_TRANSPARENT
-    ICON            IDI_LOCKRESTORED32,IDC_INTERLOCK_RESTORED,261,41,20,20,
-                    SS_CENTERIMAGE | NOT WS_VISIBLE,WS_EX_TRANSPARENT
-    CTEXT           "INTERLOCK OPEN",IDC_INTERLOCK_OPEN_LABEL,170,41,86,9,
-                    NOT WS_VISIBLE,WS_EX_TRANSPARENT
-    CTEXT           "INTERLOCK RESTORED",IDC_INTERLOCK_RESTORED_LABEL,170,53,
-                    86,9,NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    ICON            IDI_LOCKOPEN32,IDC_INTERLOCK_OPEN,261,41,20,20,SS_CENTERIMAGE | NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    ICON            IDI_LOCKRESTORED32,IDC_INTERLOCK_RESTORED,261,41,20,20,SS_CENTERIMAGE | NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    CTEXT           "INTERLOCK OPEN",IDC_INTERLOCK_OPEN_LABEL,170,41,86,9,NOT WS_VISIBLE,WS_EX_TRANSPARENT
+    CTEXT           "INTERLOCK RESTORED",IDC_INTERLOCK_RESTORED_LABEL,170,53,86,9,NOT WS_VISIBLE,WS_EX_TRANSPARENT
     LTEXT           "kV",IDC_HIGHVOLTAGECONTROLLABEL4,157,126,11,8
     LTEXT           "uA",IDC_CURRENTCONTROLLABEL2,157,142,10,8
-    CONTROL         146,IDC_STATIC_ISO_CURVE2,"Static",SS_BITMAP | NOT 
-                    WS_VISIBLE,177,157,115,57,WS_EX_TRANSPARENT
+    CONTROL         IDB_MINI_X_50KV,IDC_STATIC_ISO_CURVE2,"Static",SS_BITMAP | NOT WS_VISIBLE,177,157,115,57,WS_EX_TRANSPARENT
 END
 
 
@@ -216,7 +197,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -243,28 +224,150 @@ END
 //
 
 IDB_AMPTEK_LOGO         BITMAP                  "res\\AmptekLogoSM.bmp"
+
 IDB_MINI_X              BITMAP                  "res\\MiniXChartSM.bmp"
+
 IDB_AMPTEK_LOGO_SM      BITMAP                  "res\\AmptekLogoExSm.bmp"
+
 IDB_MINI_X_LOGO         BITMAP                  "res\\MiniXLogoSM.bmp"
+
 IDB_MINIX_HW_SM         BITMAP                  "res\\minixHWSM.bmp"
+
 IDB_MINI_X_50KV         BITMAP                  "res\\MiniXChartSM_50kV.bmp"
 
-/////////////////////////////////////////////////////////////////////////////
-//
-// RT_MANIFEST
-//
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_ABOUTBOX            "&About MiniX..."
 END
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (Canada) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENC)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_CAN
+#pragma code_page(1252)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON3               ICON                    "res\\icon3.ico"
+
+IDI_ICON5               ICON                    "res\\icon5.ico"
+
+IDI_ICON6               ICON                    "res\\icon6.ico"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOG1 DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,198,155,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,252,155,50,14
+END
+
+IDD_DIALOG2 DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,198,155,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,252,155,50,14
+END
+
+IDD_DIALOG3 DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,198,155,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,252,155,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DIALOG1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+
+    IDD_DIALOG3, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP                  "res\\bitmap1.bmp"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// AFX_DIALOG_LAYOUT
+//
+
+IDD_DIALOG1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG2 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG3 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+#endif    // English (Canada) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

@@ -70,7 +70,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>.\Debug\MiniX.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>.\Debug\MiniXMock.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Debug/MiniXCtrl.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -168,7 +168,11 @@
     <Image Include="res\Amptek.ico" />
     <Image Include="res\AmptekLogoExSm.bmp" />
     <Image Include="res\AmptekLogoSM.bmp" />
+    <Image Include="res\bitmap1.bmp" />
     <Image Include="res\EXIT32.ico" />
+    <Image Include="res\icon3.ico" />
+    <Image Include="res\icon5.ico" />
+    <Image Include="res\icon6.ico" />
     <Image Include="res\Lockopen32.ico" />
     <Image Include="res\Lockrestored32.ico" />
     <Image Include="res\MiniXApp.ICO" />

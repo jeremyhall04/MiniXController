@@ -64,6 +64,7 @@ BOOL CMiniXApp::InitInstance()
 	{
 		// TODO: Place code here to handle when the dialog is
 		//  dismissed with OK
+
 	}
 	else if (nResponse == IDCANCEL)
 	{
