@@ -1,6 +1,8 @@
 // MiniX.cpp : Defines the class behaviors for the application.
 //
 
+// TEST
+
 #include "stdafx.h"
 #include "MiniX.h"
 #include "MiniXDlg.h"
