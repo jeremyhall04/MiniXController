@@ -122,8 +122,8 @@ void WINAPI ReadMiniXMonitor(MiniX_Monitor* MiniXMonitor)
 		//delta = (double(rand() % 100) - 50) / 100.0;
 		//m_monitor.mxmCurrent_uA = m_settings.Current_uA + delta;
 
-		//delta = double(rand() % 100) / 10.0;
-		//m_monitor.mxmTemperatureC = m_defaultTemp + delta;
+		double delta = double(rand() % 100) / 10.0;
+		m_monitor.mxmTemperatureC = m_defaultTemp + delta;
 
 		// PID										target							actual
 		//m_monitor.mxmHighVoltage_kV += pid.step(m_settings.HighVoltage_kV, m_monitor.mxmHighVoltage_kV);
