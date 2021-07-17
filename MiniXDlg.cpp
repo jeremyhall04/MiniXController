@@ -23,20 +23,6 @@ COLORREF    crBkGndActive;
 COLORREF    crText; 
 COLORREF    crTextActive; 
 
-// JEREMY:
-class LabTimer : CMiniXDlg
-{
-public:
-    LabTimer(CMiniXDlg* dlg);
-};
-
-LabTimer::LabTimer(CMiniXDlg* dlg) {
-    
-    
-}
-
-
-
 // CAboutDlg dialog used for App About
 class CAboutDlg : public CDialog
 {
@@ -399,14 +385,6 @@ void CMiniXDlg::OnBnClickedHvOn()
             Sleep(100);
         }
     }
-
-    //msgResponse = AfxMessageBox("Turn X-RAY High Voltage ON?",MB_YESNO | MB_ICONQUESTION | MB_TOPMOST);
-
-    // Turn on timer
-    //LabTimer timer(dlg);
-    //theApp.dlg;
-    
-
     indDisableMonitorCmds = false;
 }
 

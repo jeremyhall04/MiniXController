@@ -13,11 +13,44 @@ byte isOpen = 0;
 
 double m_defaultTemp = 25.0;
 
+// PID control, returns the next step
+class PID {
+public:
+	PID();
+	double step(double target, double actual);	// execute PID
+private:
+	double kp, ki, kd, A, B, C, target, actual, e, e_prev_1, e_prev_2;
+};
+
+PID::PID() {
+	kp = 1.0;
+	ki = 0.0;
+	kd = 0.0;
+	A = kp + ki + kd;
+	B = -2 * kd - kp;
+	C = kd;
+	target = actual = e = e_prev_1 = e_prev_2 = 0.0;
+}
+
+double PID::step(double target, double actual)
+{
+	double u_increment;
+	this->target = target;
+	this->actual = actual;
+	e = target - actual;
+	u_increment = A * e + B * e_prev_1 + C * e_prev_2;
+	e_prev_2 = e_prev_1;
+	e_prev_1 = e;
+	return u_increment;
+}
+
+PID pid;
+
 //OpenMiniX - Opens an Instance of a MiniX Controller Application
 void WINAPI OpenMiniX()
 {
-	m_settings.Current_uA = 6;
-	m_settings.HighVoltage_kV = 7;
+	m_settings.Current_uA = 0;
+	m_settings.HighVoltage_kV = 0;
 
 	m_monitor.mxmCurrent_uA = 0.0;
 	m_monitor.mxmEnabledCmds = mxcHVOn | mxcHVOff | mxcSetHVandCurrent;
@@ -82,21 +115,28 @@ void WINAPI ReadMiniXMonitor(MiniX_Monitor* MiniXMonitor)
 {
 	if (m_monitor.mxmHVOn)
 	{
-		//// if xray is on, randomly vary the monitored voltage, current and board temp
-		double delta = (double(rand() % 100) - 50) / 100.0;
+		// if xray is on, randomly vary the monitored voltage, current and board temp
+		//double delta = (double(rand() % 100) - 50) / 100.0;
 		//m_monitor.mxmHighVoltage_kV = m_settings.HighVoltage_kV + delta;
 
 		//delta = (double(rand() % 100) - 50) / 100.0;
 		//m_monitor.mxmCurrent_uA = m_settings.Current_uA + delta;
 
-		delta = double(rand() % 100) / 10.0;
-		m_monitor.mxmTemperatureC = m_defaultTemp + delta;
+		//delta = double(rand() % 100) / 10.0;
+		//m_monitor.mxmTemperatureC = m_defaultTemp + delta;
 
-		// Increase values from previous to input
-		m_settings.HighVoltage_kV += 4;
-		m_settings.Current_uA += 5;
-		m_monitor.mxmHighVoltage_kV = m_settings.HighVoltage_kV;
-		m_monitor.mxmCurrent_uA = m_settings.Current_uA;
+		// PID										target							actual
+		//m_monitor.mxmHighVoltage_kV += pid.step(m_settings.HighVoltage_kV, m_monitor.mxmHighVoltage_kV);
+		//m_monitor.mxmCurrent_uA += pid.step(m_settings.Current_uA, m_monitor.mxmCurrent_uA);
+
+		if (m_monitor.mxmHighVoltage_kV < m_settings.HighVoltage_kV)
+		{
+			m_monitor.mxmHighVoltage_kV += 3;
+		}
+		if (m_monitor.mxmCurrent_uA < m_settings.Current_uA)
+		{
+			m_monitor.mxmCurrent_uA += 4;
+		}
 	}
 	else
 	{

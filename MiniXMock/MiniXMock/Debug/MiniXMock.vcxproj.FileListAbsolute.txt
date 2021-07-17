@@ -2,3 +2,5 @@ C:\personal\MiniXController-main\MiniXController-main\Debug\MiniXMock.pdb
 C:\personal\MiniXController-main\MiniXController-main\MiniXMock\MiniXMock\Debug\MiniXMock.pdb
 C:\Users\Jeremy\Desktop\vcMiniX\Debug\MiniXMock.pdb
 C:\Users\Jeremy\Desktop\vcMiniX\MiniXMock\MiniXMock\Debug\MiniXMock.pdb
+C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\Debug\MiniXMock.pdb
+C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\MiniXMock\MiniXMock\Debug\MiniXMock.pdb
