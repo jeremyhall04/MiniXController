@@ -369,7 +369,6 @@ void CMiniXDlg::OnBnClickedStartMiniXController()
             GetDlgItem(IDC_SERIAL_NUMBER)->SetWindowText("");
         }
     }
-
     indDisableMonitorCmds = false;
 }
 
@@ -396,9 +395,6 @@ void CMiniXDlg::OnBnClickedHvOff()
         SendMiniXCommand((byte)mxcHVOff);
         Sleep(100);
     }
-
-    //GetDlgItem(IDC_HV_ON)->EnableWindow(true);
-
     indDisableMonitorCmds = false;
 }
 
