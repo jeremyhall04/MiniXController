@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MiniX", "MiniX.vcxproj", "{3996D508-5539-4861-A0F7-B052B936F86A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3996D508-5539-4861-A0F7-B052B936F86A}.Debug|x86.ActiveCfg = Debug|Win32
+		{3996D508-5539-4861-A0F7-B052B936F86A}.Debug|x86.Build.0 = Debug|Win32
+		{3996D508-5539-4861-A0F7-B052B936F86A}.Release|x86.ActiveCfg = Release|Win32
+		{3996D508-5539-4861-A0F7-B052B936F86A}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7CF4A4D3-0D67-47E5-BE42-5223617D4C87}
+	EndGlobalSection
+EndGlobal

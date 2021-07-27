@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MiniX", "MiniX.vcproj", "{3996D508-5539-4861-A0F7-B052B936F86A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{3996D508-5539-4861-A0F7-B052B936F86A}.Debug.ActiveCfg = Debug|Win32
+		{3996D508-5539-4861-A0F7-B052B936F86A}.Debug.Build.0 = Debug|Win32
+		{3996D508-5539-4861-A0F7-B052B936F86A}.Release.ActiveCfg = Release|Win32
+		{3996D508-5539-4861-A0F7-B052B936F86A}.Release.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
