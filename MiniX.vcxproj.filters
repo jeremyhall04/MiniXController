@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{055d64bb-e73c-4e95-8a86-43325c015af6}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{0f26c306-d216-43ee-89c7-bc73dd218a58}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{579b4c25-ec99-44cb-94b5-c49946ed79f2}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Controls\ColorControls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniX.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniXDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\Sxbutton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\VersionInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Controls\ColorControls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LimitSingleInstance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniXAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniXDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\Sxbutton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\VersionInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Amptek.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AmptekLogoExSm.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\AmptekLogoSM.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\EXIT32.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Lockopen32.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Lockrestored32.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MiniXApp.ICO">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MiniXChartSM.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MiniXChartSM_50kV.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\minixHWSM.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MiniXLogoSM.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\RAD32.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\STOP32.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\bitmap1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icon3.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icon5.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\icon6.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MiniX.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\MiniX.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="XpRes\MiniXCtrl.exe.manifest" />
+  </ItemGroup>
+</Project>

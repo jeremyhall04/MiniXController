@@ -1,0 +1,3 @@
+C:\Users\Jeremy\Desktop\Mini-X API2\vcMiniX\Debug\MiniXCtrl.exe
+C:\Users\Jeremy\Desktop\vcMiniX\Debug\MiniXCtrl.exe
+C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\Debug\MiniXCtrl.exe

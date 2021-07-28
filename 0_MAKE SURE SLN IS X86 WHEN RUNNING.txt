@@ -1,0 +1,1 @@
+Make sure the project solution is running x86 configuration. Uploading to Git has made it change back to x64 when you pull from the remote repository.
