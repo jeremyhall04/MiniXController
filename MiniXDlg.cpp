@@ -402,8 +402,8 @@ void CMiniXDlg::OnBnClickedStartMiniXController()
     }
     GetDlgItem(IDC_BUTTON_BEGIN_WARMUP)->EnableWindow(true);
     GetDlgItem(IDC_BUTTON_CANCEL_WARMUP)->EnableWindow(true);
-    //GetDlgItem(IDC_BUTTON_BEGIN_EXPERIMENT)->EnableWindow(true);  // uncomment to avoid warmup requried
-    //GetDlgItem(IDC_BUTTON_STOP_EXPERIMENT)->EnableWindow(true);
+    GetDlgItem(IDC_BUTTON_BEGIN_EXPERIMENT)->EnableWindow(true);  // uncomment to avoid warmup requried
+    GetDlgItem(IDC_BUTTON_STOP_EXPERIMENT)->EnableWindow(true);
     indDisableMonitorCmds = false;
 }
 
@@ -498,12 +498,10 @@ void CMiniXDlg::TimerControl(UINT uEventId, bool isCreate)
 	        tmrInterLock_Enabled = isCreate;
             break;
         case tmrWarmUp_EventId:
-            if (isCreate) {
+            if (isCreate)
                 tmrWarmUp_TimerId = SetTimer(tmrWarmUp_EventId, tmrWarmUp_Interval, NULL);
-            }
-            else {
+            else
                 KillTimer(tmrWarmUp_TimerId);
-            }
             tmrWarmUp_Enabled = isCreate;
             break;
         case tmrDuration_EventId:
@@ -703,8 +701,8 @@ void CMiniXDlg::UpdateWarmUpTimer()
     }
     ReadMiniXMonitor(&MiniXMonitor);
     ReadMiniXSettings(&MiniXSettings);
-    if (MiniXMonitor.mxmHighVoltage_kV >= MiniXSettings.HighVoltage_kV
-        && MiniXMonitor.mxmCurrent_uA >= MiniXSettings.Current_uA)
+    if (MiniXMonitor.mxmHighVoltage_kV >= MiniXSettings.HighVoltage_kV - 0.5
+        && MiniXMonitor.mxmCurrent_uA >= MiniXSettings.Current_uA - 0.5)
     {
         if (is_experiment_warmup) {
             // for experiment duration 
@@ -783,12 +781,12 @@ void CMiniXDlg::getWarmUpPhaseProc(int warm_up_phase)
         SetMiniXCurrent(warmup_current[warm_up_phase]);
         Sleep(100);
     }
-    // set voltage and current
-    SendMiniXCommand((byte)mxcSetHVandCurrent);
-    Sleep(100);
     // turn on miniX
     SendMiniXCommand((byte)mxcHVOn);
     Sleep(100);
+    // set voltage and current
+    SendMiniXCommand((byte)mxcSetHVandCurrent);
+    Sleep(1000);
 }
 
 void CMiniXDlg::UpdateExperimentTimer() 
@@ -944,6 +942,7 @@ void CMiniXDlg::OnBnClickedButtonCancelWarmup()
 
 void CMiniXDlg::OnBnClickedButtonBeginExperiment() 
 {
+    double dblValue;
     indDisableMonitorCmds = true;
     if (isMiniXDlg()) {
         double minutes, seconds;
@@ -957,12 +956,12 @@ void CMiniXDlg::OnBnClickedButtonBeginExperiment()
         else {
             s_time = getTimeInDisplayableFormat((int)minutes, (int)seconds);
             experiment_duration_seconds = ((int)minutes) * 60 + (int)seconds;
-            SetMiniXHV(50);
+            dblValue = GetWindowDouble(IDC_SETHIGHVOLTAGECONTROLEDIT);  //sent hv value
+            SetMiniXHV(dblValue);
             Sleep(100);
-            SetMiniXCurrent(79);
+            dblValue = GetWindowDouble(IDC_SETCURRENTCONTROLEDIT);      //send current value
+            SetMiniXCurrent(dblValue);
             Sleep(100);
-            SendMiniXCommand((byte)mxcSetHVandCurrent);
-            Sleep(1000);
             ReadMiniXSettings(&MiniXSettings);  // read corrected values back
             DisplayDouble(IDC_SETHIGHVOLTAGECONTROLEDIT, MiniXSettings.HighVoltage_kV, 0);
             DisplayDouble(IDC_SETCURRENTCONTROLEDIT, MiniXSettings.Current_uA, 0);
@@ -976,6 +975,8 @@ void CMiniXDlg::OnBnClickedButtonBeginExperiment()
                 is_experiment_warmup = true;
                 SendMiniXCommand((byte)mxcHVOn);
                 Sleep(100);
+                SendMiniXCommand((byte)mxcSetHVandCurrent); // X-Ray must be ON to call this function
+                Sleep(1000);
                 TimerControl(tmrRuntime_EventId, true);
                 TimerControl(tmrWarmUp_EventId, true);
             }

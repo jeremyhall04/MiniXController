@@ -65,7 +65,7 @@ public:
 	afx_msg void OnDestroy();
 
 	CColorStatic m_indOutOfRange;	//CStatic m_indOutOfRange;
-	CColorStatic m_indWattageMW;			//CStatic m_indWattageMW;
+	CColorStatic m_indWattageMW;	//CStatic m_indWattageMW;
 	CSXButton m_HvOnButton;		//CButton m_HvOnButton;
 	CSXButton m_HvOffButton;	//CButton m_HvOffButton;
 	CSXButton m_ExitButton;     //CButton m_ExitButton;
