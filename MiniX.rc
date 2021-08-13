@@ -162,7 +162,7 @@ BEGIN
     EDITTEXT        IDC_EXPERIMENTDURATIONSECEDIT,102,122,27,14,ES_AUTOHSCROLL
     LTEXT           "MIN",IDC_STATIC,80,125,14,8
     LTEXT           "SEC",IDC_STATIC,137,125,15,8
-    LTEXT           "NOTE: ""Begin Experiment"" automatically sets HV = 50kV & Current = 79uA.",IDC_STATIC,28,165,234,8
+    LTEXT           "NOTE: When using ""Set Experiment Duration"" the Voltage and Current must be set below",IDC_STATIC,7,165,283,8
     CTEXT           "",IDC_TEMPWARNINGTEXT,93,331,124,13,SS_CENTERIMAGE
     CTEXT           "",IDC_TEMPWARNINGTEXT2,93,344,124,13,SS_CENTERIMAGE
 END

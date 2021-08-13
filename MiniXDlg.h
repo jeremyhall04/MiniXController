@@ -105,6 +105,10 @@ public:
     //*********************** NEW FUNCTIONS **************************//
 
     void checkMiniXTemp(double temp, bool is_HVOn);
+    void VC_SetSendStart();
+    void VC_Set();
+    void VC_SendAndStart();
+    void VC_ReturnCorrected();
 
     // warm up procedure
     void UpdateWarmUpTimer();                       // updates the warmup procedure at tmrWarmUp_Interval

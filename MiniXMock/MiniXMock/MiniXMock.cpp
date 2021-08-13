@@ -86,7 +86,7 @@ void WINAPI ReadMiniXMonitor(MiniX_Monitor* MiniXMonitor)
 		//m_monitor.mxmTemperatureC += 1;
 		if (m_monitor.mxmHighVoltage_kV < m_settings.HighVoltage_kV)
 		{
-			m_monitor.mxmHighVoltage_kV += 5;
+ 			m_monitor.mxmHighVoltage_kV += 5;
 		}
 		if (m_monitor.mxmCurrent_uA < m_settings.Current_uA)
 		{
