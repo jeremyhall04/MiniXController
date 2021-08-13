@@ -1,7 +1,2 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (.\Debug\) contains files shared from another project (MiniX.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  MiniXDlg.cpp
-C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\MiniXDlg.cpp(688,12): warning C4101: 'dblValue': unreferenced local variable
-C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\MiniXDlg.cpp(969,12): warning C4101: 'dblValue': unreferenced local variable
-C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\MiniXDlg.cpp(968,20): warning C4101: 'MiniXSettings': unreferenced local variable
-C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\MiniXDlg.cpp(973,24): warning C4101: 'MiniXSettings': unreferenced local variable
   MiniX.vcxproj -> C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\.\Debug\MiniXCtrl.exe

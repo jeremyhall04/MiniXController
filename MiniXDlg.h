@@ -102,53 +102,74 @@ public:
     void EnableMiniX_Commands(byte mxmEnabledCmds);
     double GetWindowDouble(int nID);
 
-    //*********************** NEW FUNCTIONS **************************//
+    //***************************************************************************************************************************************//
 
-    void checkMiniXTemp(double temp, bool is_HVOn);
+    //                                                          NEW FUNCTIONS   
+
+    //***************************************************************************************************************************************//
+
+    CColorStatic m_warmupPhase;     // color control for warmup phase display
+    CColorStatic m_timeRemaining;   // color control for time remaining display
+
+    void checkMiniXTemp(double temp, bool is_HVOn); 
     void VC_SetSendStart();
     void VC_Set();
     void VC_SendAndStart();
     void VC_ReturnCorrected();
 
-    // warm up procedure
-    void UpdateWarmUpTimer();                       // updates the warmup procedure at tmrWarmUp_Interval
-    void getWarmUpPhaseProc(int warm_up_phase);     // sets voltage and current for each phase
-    bool is_warmed_up = false;                      // flag is true once the warmup procedure is completed
-    bool is_warming_up = false;
-    bool is_warmup_start_phase = false;             // flag if start of a warmup phase
-    bool is_warmup_pause = false;                   // indicates if the warmup proc is in the 10s after reaching phase values
-    int warmup_pause_count = 0;                     // counts 10 seconds once warmup phase has reached its values
-    int warmup_phase = 0;                           // indicates the current warmup phase
-    int warmup_count_seconds = 0;                   // adds to total_runtime, initialized on timer creation (TimerControl) NOTE: is divided depending on tmrWarmUp_Interval
-    double warmup_voltage[5] = { 15, 25, 35, 45, 50 };  // warmup procedure voltages
-    double warmup_current[5] = { 15, 35, 50, 75, 79 };  // warmup procedure currents
+    //----------------------------------------------------------------------------------
+    //                              WARMUP PROCEDURE & TIMER
+    //----------------------------------------------------------------------------------
+
+    void updateWarmUpTimer();
+    void getWarmUpPhaseProc(int warm_up_phase);
+    bool is_warmed_up = false;                          // flag once the warmup procedure is completed
+    bool is_warming_up = false;                         // flag during heating up to set values
+    bool is_warmup_start_phase = false;                 // flag if start of a warmup phase
+    bool is_warmup_pause = false;                       // indicates if the warmup proc is in the 10s after reaching phase-set values
+    int warmup_pause_count = 0;                         // counts 10 seconds once warmup phase has reached its values
+    int warmup_phase = 0;                               // indicates the current warmup phase (0, 1, 2, 3, or 4)
+    double warmup_voltage[5] = { 15, 25, 35, 45, 50 };  // warmup procedure voltages for each phase (0, 1, 2, 3, and 4, respectively)
+    double warmup_current[5] = { 15, 35, 50, 75, 79 };  // warmup procedure currents for each phase (0, 1, 2, 3, and 4, respectively)
     UINT_PTR tmrWarmUp_TimerId;
     bool tmrWarmUp_Enabled;
     UINT tmrWarmUp_Interval;
 #define tmrWarmUp_EventId 40
     
-    // experiment duration
-    void UpdateExperimentTimer();               // updates the experiment timer at tmrDuration_Interval
-    void refreshDurationTimeDisplay();          // updates the time left in set-time experiment
-    CString getTimeInDisplayableFormat(int minutes, int seconds); // converts the input minutes and seconds into a cstring to be displayed
+    //----------------------------------------------------------------------------------
+    //                        EXPERIMENT DURATION PROCEDURE & TIMER
+    //----------------------------------------------------------------------------------
+
+    void updateExperimentTimer();
+    void refreshDurationTimeDisplay();
+    CString getTimeInDisplayableFormat(int minutes, int seconds);
     CString getTimeInDisplayableFormat(int seconds);
-    bool is_experiment_running = false;         // flag if a set-time experiment is currently running
+    bool is_experiment_running = false;         // flag if a set-duration experiment is currently running
     bool is_experiment_warmup = false;          // flag if the warmup for a set-time experiment is running
-    int experiment_count_seconds;               // adds to total_runtime, initialized on timer creation (TimerControl)
-    int experiment_duration_seconds = 0;        // the set duration of an experiment in seconds (different from experiment_count_seconds if experiment ended early)
+    int experiment_duration_seconds = 0;        // the set duration of an experiment in seconds (different from experiment_count_seconds. ex: if experiment ends early)
     UINT_PTR tmrDuration_TimerId;
     bool tmrDuration_Enabled;
     UINT tmrDuration_Interval;
 #define tmrDuration_EventId 50
 
+    //----------------------------------------------------------------------------------
+    //                       SERVICE TIME TIMER & SERIALIZATION I/O
+    //----------------------------------------------------------------------------------
+
 #define RUNTIMEPATH "C:/ProgramData/Amptek_MiniX/"
     void serializeRuntime();
     void deserializeRuntime();
-    int total_runtime_seconds = 0;              // the total lifetime (in seconds) the MiniX X-Ray has been emmitting x-rays (HVOn)
+    int total_runtime_seconds = 0;  // the total runtime/service time (in seconds) the MiniX X-Ray has been ON (HVOn)
+    int warmup_count_seconds = 0;   // total time ON during warmup procedure, adds to total_runtime
+    int experiment_count_seconds;   // total time ON during set-duration experiment, adds to total_runtime
     UINT_PTR tmrRuntime_TimerId;
     bool tmrRuntime_Enabled;
     UINT tmrRuntime_Interval;
 #define tmrRuntime_EventId 60
+
+    //----------------------------------------------------------------------------------
+    //                                  BUTTONS
+    //----------------------------------------------------------------------------------
 
     afx_msg void OnBnClickedButtonBeginWarmup();
     afx_msg void OnBnClickedButtonCancelWarmup();
