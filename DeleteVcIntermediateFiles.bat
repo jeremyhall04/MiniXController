@@ -6,6 +6,7 @@ del .\*.pch /f /s /q
 del .\*.pdb /f /s /q
 del .\*.sbr /f /s /q
 del .\*.bsc /f /s /q
+del .\*.tlog /f /s /q
 
 
 

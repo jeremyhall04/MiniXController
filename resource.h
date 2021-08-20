@@ -8,34 +8,23 @@
 #define IDD_MINIXAP_DIALOG              102
 #define IDR_MAINFRAME                   128
 #define IDB_AMPTEK_LOGO                 132
-#define IDB_BITMAP2                     133
 #define IDB_MINI_X                      133
 #define IDB_AMPTEK_LOGO_SM              134
 #define IDB_MINI_X_LOGO                 135
 #define IDB_MINIX_HW_SM                 136
-#define IDI_ICON1                       137
 #define IDI_STOPSIGN                    137
 #define IDI_RAD32                       138
-#define IDI_ICON2                       139
 #define IDI_EXIT32                      139
-#define IDI_ICON4                       141
 #define IDI_AMPTEK                      141
 #define IDI_LOCKOPEN32                  142
 #define IDI_LOCKRESTORED32              143
 #define IDB_MINI_X_50KV                 146
-#define IDD_DIALOG1                     148
-#define IDB_BITMAP1                     150
-#define IDI_ICON3                       151
-#define IDD_DIALOG2                     152
-#define IDI_ICON5                       153
-#define IDI_ICON6                       154
-#define IDD_DIALOG3                     156
-#define IDB_BITMAP3                     158
-#define IDD_DIALOG4                     159
-#define IDD_DIALOG5                     161
-#define IDI_ICON7                       162
-#define IDB_BITMAP4                     163
-#define IDD_DIALOG6                     164
+#define IDB_CHART_MX50                  147
+#define IDB_CHART_MX50_10               148
+#define IDB_CHART_MX70                  149
+#define IDB_MINIX_OEM_50KV4W            150
+#define IDB_MINIX_OEM_50KV10W           151
+#define IDB_MINIX_OEM_70KV10W           152
 #define IDC_EDIT_SEL_OPEN               1002
 #define IDC_STATUS_EDIT                 1002
 #define IDC_BUTTON_CLOSEK0              1008
@@ -61,7 +50,6 @@
 #define IDC_HIGHVOLTAGEMONITORTEXT      1044
 #define IDC_CURRENTMONITORTEXT          1045
 #define IDC_SETCURRENTCONTROLBUTTON     1046
-#define IDC_WARMUPMONITORTEXT           1046
 #define IDC_SETHIGHVOLTAGECONTROLEDIT   1047
 #define IDC_SETCURRENTCONTROLEDIT       1048
 #define IDC_STARTMONITORBUTTON          1049
@@ -115,31 +103,25 @@
 #define IDC_GETSTATUSBUTTON             1091
 #define IDC_HW_IMAGE                    1092
 #define IDC_HW_IMAGE2                   1093
-#define IDC_STATIC_ISO_CURVE            1094
-#define IDC_STATIC_ISO_CURVE2           1095
-#define IDC_BUTTON_BEGIN_WARMUP         1098
-#define IDC_BUTTON_BEGIN_WARMUP2        1099
-#define IDC_BUTTON_CANCEL_WARMUP        1099
-#define IDC_EXPERIMENTDURATIONEDIT      1101
-#define IDC_BUTTON_BEGIN_EXPERIMENT     1102
-#define IDC_COMBOBOXEX1                 1103
-#define IDC_DURATION_TIME_TEXT          1104
-#define IDC_BUTTON_STOP_EXPERIMENT      1105
-#define IDC_EXPERIMENTDURATIONMINEDIT   1111
-#define IDC_EXPERIMENTDURATIONSECEDIT   1112
-#define IDC_TEMPWARNINGTEXT             1113
-#define IDC_TEMPWARNINGTEXT2            1114
-#define IDC_SERIALIZERUNTIMEDISPLAY     1115
-#define IDC_ACTIVERUNTIMEDISPLAY        1116
-#define IDC_PROGRESSBAR                 1117
+#define IDC_STATIC_ISO_CURVE_40KV       1094
+#define IDC_STATIC_ISO_CURVE_50KV       1095
+#define IDC_HW_IMAGE_OEM_50KV4W         1098
+#define IDC_HW_IMAGE_OEM_50KV10W        1099
+#define IDC_HW_IMAGE_OEM_70KV10W        1100
+#define IDC_STATIC_ISO_CURVE_MX50       1101
+#define IDC_STATIC_ISO_CURVE_MX50_10    1102
+#define IDC_STATIC_ISO_CURVE_MX70       1103
+#define IDC_ACTIVERUNTIMEDISPLAY        1104
+#define IDC_BUTTON2                     1105
+#define IDC_SETANDRUNMINIX              1105
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        169
+#define _APS_NEXT_RESOURCE_VALUE        153
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1118
+#define _APS_NEXT_CONTROL_VALUE         1106
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -18,6 +18,31 @@ enum InterlockViewState {
     ilvsHIDE
 };
 
+//holds Mini-X Fixed Constant values for Display Setup
+typedef struct _MiniX_Constant {
+	long lTubeTypeID;								// Tube Type Identifier Index
+	double dblHighVoltageConversionFactor;			// High Voltage Conversion Factor
+	double dblHighVoltageMin;						// High Voltage Min
+	double dblHighVoltageMax;						// High Voltage Max
+	double dblDefaultdblHighVoltage;				// Default High Voltage kV
+	double dblCurrentMin;							// Current Min
+	double dblCurrentMax;							// Current Max
+	double dblDefaultCurrent;						// Default Current
+	double dblWattageMax;							// Wattage Max 
+	CString strTubeType;							// Tube Type Name
+	CString strControllerType;						// Controller Type Name
+	CString strCtrlTypeID;							// Controller Type Short Name
+} MiniX_Constant, *LP_MiniX_Constant;
+
+typedef enum _MINIX_CONTROLLER_ENUM {
+	mxceMX70,
+	mxceMX50,
+	mxceMX5010,
+	mxceMiniX,
+    mxceUnknownMX,
+	mxceUnknownMX1
+} MINIX_CONTROLLER_ENUM;
+
 /////////////////////////////////////////////////////////////////////////////
 // CMiniXDlg dialog
 
@@ -26,6 +51,7 @@ class CMiniXDlg : public CDialog
 // Construction
 public:
 	CMiniXDlg(CWnd* pParent = NULL);	// standard constructor
+
 
 // Dialog Data
 	//{{AFX_DATA(CMiniXDlg)
@@ -65,7 +91,7 @@ public:
 	afx_msg void OnDestroy();
 
 	CColorStatic m_indOutOfRange;	//CStatic m_indOutOfRange;
-	CColorStatic m_indWattageMW;	//CStatic m_indWattageMW;
+	CColorStatic m_indWattageMW;			//CStatic m_indWattageMW;
 	CSXButton m_HvOnButton;		//CButton m_HvOnButton;
 	CSXButton m_HvOffButton;	//CButton m_HvOffButton;
 	CSXButton m_ExitButton;     //CButton m_ExitButton;
@@ -101,80 +127,50 @@ public:
     void DisplayStatus(byte StatusCode);
     void EnableMiniX_Commands(byte mxmEnabledCmds);
     double GetWindowDouble(int nID);
+	void HideIsoCurveAndMiniX();
+	void DisplayIsoCurveAndMiniX(MINIX_CONTROLLER_ENUM iMX);
+	bool is40kv;
 
-    //***************************************************************************************************************************************//
+	void ReadMiniXSetup40kvMiniX(MiniX_Constant *MiniXConstant);
+	void ReadMiniXSetup50kvMiniX(MiniX_Constant *MiniXConstant);
+	void ReadMiniXSetup50kv4W_OEM(MiniX_Constant *MiniXConstant);
+	void ReadMiniXSetup50kv10W_OEM(MiniX_Constant *MiniXConstant);
+	void ReadMiniXSetup70kv10W_OEM(MiniX_Constant *MiniXConstant);
+	void ReadMiniXSetupDisplay(MiniX_Constant *MiniXConstant);
+	CString MxDblDispFormat(double dblValue);
+	MiniX_Constant MxDevice; 
+	void MXControllerSetup();
+	void ReadMXSetup(MINIX_CONTROLLER_ENUM iMX, MiniX_Constant *MiniXConstant);
+	MINIX_CONTROLLER_ENUM iMX;
 
-    //                                                          NEW FUNCTIONS   
 
-    //***************************************************************************************************************************************//
+	//***************************************************************************************************************************************//
 
-    CColorStatic m_warmupPhase;     // color control for warmup phase display
-    CColorStatic m_timeRemaining;   // color control for time remaining display
+	//                                                          NEW FUNCTIONS   
 
-    void checkMiniXTemp(double temp, bool is_HVOn); 
-    void VC_SetSendStart();
-    void VC_Set();
-    void VC_SendAndStart();
-    void VC_ReturnCorrected();
+	//***************************************************************************************************************************************//
 
-    //----------------------------------------------------------------------------------
-    //                              WARMUP PROCEDURE & TIMER
-    //----------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------
+	//                        EXPERIMENT DURATION PROCEDURE & TIMER
+	//----------------------------------------------------------------------------------
+	CString getTimeInDisplayableFormat(int minutes, int seconds);
+	CString getTimeInDisplayableFormat(int seconds);
 
-    void updateWarmUpTimer();
-    void getWarmUpPhaseProc(int warm_up_phase);
-    bool is_warmed_up = false;                          // flag once the warmup procedure is completed
-    bool is_warming_up = false;                         // flag during heating up to set values
-    bool is_warmup_start_phase = false;                 // flag if start of a warmup phase
-    bool is_warmup_pause = false;                       // indicates if the warmup proc is in the 10s after reaching phase-set values
-    int warmup_pause_count = 0;                         // counts 10 seconds once warmup phase has reached its values
-    int warmup_phase = 0;                               // indicates the current warmup phase (0, 1, 2, 3, or 4)
-    double warmup_voltage[5] = { 15, 25, 35, 45, 50 };  // warmup procedure voltages for each phase (0, 1, 2, 3, and 4, respectively)
-    double warmup_current[5] = { 15, 35, 50, 75, 79 };  // warmup procedure currents for each phase (0, 1, 2, 3, and 4, respectively)
-    UINT_PTR tmrWarmUp_TimerId;
-    bool tmrWarmUp_Enabled;
-    UINT tmrWarmUp_Interval;
-#define tmrWarmUp_EventId 40
-    
-    //----------------------------------------------------------------------------------
-    //                        EXPERIMENT DURATION PROCEDURE & TIMER
-    //----------------------------------------------------------------------------------
-
-    void updateExperimentTimer();
-    void refreshDurationTimeDisplay();
-    CString getTimeInDisplayableFormat(int minutes, int seconds);
-    CString getTimeInDisplayableFormat(int seconds);
-    bool is_experiment_running = false;         // flag if a set-duration experiment is currently running
-    bool is_experiment_warmup = false;          // flag if the warmup for a set-time experiment is running
-    int experiment_duration_seconds = 0;        // the set duration of an experiment in seconds (different from experiment_count_seconds. ex: if experiment ends early)
-    UINT_PTR tmrDuration_TimerId;
-    bool tmrDuration_Enabled;
-    UINT tmrDuration_Interval;
-#define tmrDuration_EventId 50
-
-    //----------------------------------------------------------------------------------
-    //                       SERVICE TIME TIMER & SERIALIZATION I/O
-    //----------------------------------------------------------------------------------
+	//----------------------------------------------------------------------------------
+	//                       SERVICE TIME TIMER & SERIALIZATION I/O
+	//----------------------------------------------------------------------------------
 
 #define RUNTIMEPATH "C:/ProgramData/Amptek_MiniX/"
-    void serializeRuntime();
-    void deserializeRuntime();
-    int total_runtime_seconds = 0;  // the total runtime/service time (in seconds) the MiniX X-Ray has been ON (HVOn)
-    int warmup_count_seconds = 0;   // total time ON during warmup procedure, adds to total_runtime
-    int experiment_count_seconds;   // total time ON during set-duration experiment, adds to total_runtime
-    UINT_PTR tmrRuntime_TimerId;
-    bool tmrRuntime_Enabled;
-    UINT tmrRuntime_Interval;
+	void serializeRuntime();
+	void deserializeRuntime();
+	int total_runtime_seconds;		// the total runtime/service time (in seconds) the MiniX X-Ray has been ON (HVOn)
+	int warmup_count_seconds = 0;   // total time ON during warmup procedure, adds to total_runtime
+	int experiment_count_seconds;   // total time ON during set-duration experiment, adds to total_runtime
+	UINT_PTR tmrRuntime_TimerId;
+	bool tmrRuntime_Enabled;
+	UINT tmrRuntime_Interval;
 #define tmrRuntime_EventId 60
-
-    //----------------------------------------------------------------------------------
-    //                                  BUTTONS
-    //----------------------------------------------------------------------------------
-
-    afx_msg void OnBnClickedButtonBeginWarmup();
-    afx_msg void OnBnClickedButtonCancelWarmup();
-    afx_msg void OnBnClickedButtonBeginExperiment();
-    afx_msg void OnBnClickedButtonStopExperiment();
+	afx_msg void OnBnClickedSetandrunminix();
 };
 
 //{{AFX_INSERT_LOCATION}}

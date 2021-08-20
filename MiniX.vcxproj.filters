@@ -2,15 +2,15 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Source Files">
-      <UniqueIdentifier>{055d64bb-e73c-4e95-8a86-43325c015af6}</UniqueIdentifier>
+      <UniqueIdentifier>{a5f569c0-3d19-4eb9-a1b0-04b07e3a847c}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{0f26c306-d216-43ee-89c7-bc73dd218a58}</UniqueIdentifier>
+      <UniqueIdentifier>{1c79f3bb-5025-4126-b26c-4cd39651a370}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl</Extensions>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{579b4c25-ec99-44cb-94b5-c49946ed79f2}</UniqueIdentifier>
+      <UniqueIdentifier>{b0fd9180-8fdb-4fe9-8730-496185e776ca}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
     </Filter>
   </ItemGroup>
@@ -103,16 +103,22 @@
     <Image Include="res\STOP32.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\bitmap1.bmp">
+    <Image Include="res\MX50kVIsopowerCurve4W_SM.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\icon3.ico">
+    <Image Include="res\MX50kVIsopowerCurve10W_sm.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\icon5.ico">
+    <Image Include="res\MX70kVIsopowerCurve10W_sm.bmp">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="res\icon6.ico">
+    <Image Include="res\MinixOemMx50kV4W.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MinixOemMx50kV10W.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MinixOemMx70kV10W.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

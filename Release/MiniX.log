@@ -1,9 +1,2 @@
-﻿  ColorControls.cpp
-  MiniX.cpp
-  MiniXDlg.cpp
-C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\MiniXDlg.cpp(703,12): warning C4101: 'dblValue': unreferenced local variable
-C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\MiniXDlg.cpp(1016,12): warning C4101: 'dblValue': unreferenced local variable
-C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\MiniXDlg.cpp(1015,20): warning C4101: 'MiniXSettings': unreferenced local variable
-C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\MiniXDlg.cpp(1020,24): warning C4101: 'MiniXSettings': unreferenced local variable
-  Generating Code...
-  MiniX.vcxproj -> C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\.\Release\MiniXCtrl.exe
+﻿  MiniXDlg.cpp
+  MiniX.vcxproj -> C:\Users\Jeremy\Desktop\Coding\MiniXProject\Mini-X API OEM MX\vcMiniX\.\Release\MiniXCtrl.exe

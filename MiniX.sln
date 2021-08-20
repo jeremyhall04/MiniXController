@@ -27,11 +27,12 @@ Global
 		{E5691664-09E0-4042-B90F-9682D172CF28}.Release|x64.ActiveCfg = Release|x64
 		{E5691664-09E0-4042-B90F-9682D172CF28}.Release|x64.Build.0 = Release|x64
 		{E5691664-09E0-4042-B90F-9682D172CF28}.Release|x86.ActiveCfg = Release|Win32
+		{E5691664-09E0-4042-B90F-9682D172CF28}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A0FB147B-8242-4A3C-B316-43FAFE07EFE5}
+		SolutionGuid = {112AFCB1-393B-4C2E-8B89-90D44CCE95C0}
 	EndGlobalSection
 EndGlobal

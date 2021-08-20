@@ -84,6 +84,9 @@ void WINAPI ReadMiniXSettings(MiniX_Settings *MiniXSettings);
 //ReadMiniXSerialNumber - Read MiniX Serial Number
 long WINAPI ReadMiniXSerialNumber();
 
+//ReadMiniXDeviceType - Read MiniX Device Type
+long WINAPI ReadMinixOemMxDeviceType();
+
 //converts minix controller status codes (mxmStatusInd) to text strings
 static CString GetMiniXStatusString(byte monitorMiniXStatus)
 {

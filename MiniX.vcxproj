@@ -13,7 +13,6 @@
   <PropertyGroup Label="Globals">
     <Keyword>MFCProj</Keyword>
     <ProjectGuid>{3996D508-5539-4861-A0F7-B052B936F86A}</ProjectGuid>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>MiniXCtrl</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -50,7 +49,6 @@
     <OutDir>.\Release\</OutDir>
     <IntDir>.\Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>MiniXCtrl</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -117,7 +115,6 @@
       <ProgramDatabaseFile>.\Release/MiniX.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
     </Link>
     <Midl>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -169,11 +166,7 @@
     <Image Include="res\Amptek.ico" />
     <Image Include="res\AmptekLogoExSm.bmp" />
     <Image Include="res\AmptekLogoSM.bmp" />
-    <Image Include="res\bitmap1.bmp" />
     <Image Include="res\EXIT32.ico" />
-    <Image Include="res\icon3.ico" />
-    <Image Include="res\icon5.ico" />
-    <Image Include="res\icon6.ico" />
     <Image Include="res\Lockopen32.ico" />
     <Image Include="res\Lockrestored32.ico" />
     <Image Include="res\MiniXApp.ICO" />
@@ -181,6 +174,12 @@
     <Image Include="res\MiniXChartSM_50kV.bmp" />
     <Image Include="res\minixHWSM.bmp" />
     <Image Include="res\MiniXLogoSM.bmp" />
+    <Image Include="res\MinixOemMx50kV10W.bmp" />
+    <Image Include="res\MinixOemMx50kV4W.bmp" />
+    <Image Include="res\MinixOemMx70kV10W.bmp" />
+    <Image Include="res\MX50kVIsopowerCurve10W_sm.bmp" />
+    <Image Include="res\MX50kVIsopowerCurve4W_SM.bmp" />
+    <Image Include="res\MX70kVIsopowerCurve10W_sm.bmp" />
     <Image Include="res\RAD32.ico" />
     <Image Include="res\STOP32.ico" />
   </ItemGroup>
