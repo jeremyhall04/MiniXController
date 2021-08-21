@@ -150,27 +150,71 @@ public:
 
 	//***************************************************************************************************************************************//
 
+	CColorStatic m_temperatureWarning;	// color control for temperature warning display
+	CColorStatic m_warmupPhaseDisplay;			// color control for warmup phase display
+	CColorStatic m_timeRemainingDisplay;		// color control for time remaining display
+
+	void turnHVOn();
+	void turnHVOff();
+	void setAndStartMiniX(double voltage, double current);
+	void setAndStartMiniX();
+	void toggleButton(byte buttonID, bool isActive);
+	void checkMiniXTemp(double temp, bool is_HVOn);
+
 	//----------------------------------------------------------------------------------
-	//                        EXPERIMENT DURATION PROCEDURE & TIMER
+	//								EXPERIMENTS & PROCEDURES
 	//----------------------------------------------------------------------------------
+	void updateExperiment();
+	UINT_PTR tmrExperiment_TimerId;
+	bool tmrExperiment_Enabled;
+	UINT tmrExperiment_Interval;
+#define tmrExperiment_EventId 50
+
+	// WARMUP PROCEDURE
+	//----------------------------------------------------------------------------------
+	void warmupProcedure();
+	void displayPhase(int warm_up_phase);
 	CString getTimeInDisplayableFormat(int minutes, int seconds);
 	CString getTimeInDisplayableFormat(int seconds);
+	bool isWarmup = false;
+	bool isStartOfPhase = false;
+	bool isPaused = false;
+	int phase = 0;							// indicates the current warmup phase (0, 1, 2, 3, or 4)
+	double warmup_voltage[5] = { 15, 25, 35, 45, 50 };  // warmup procedure voltages for each phase (0, 1, 2, 3, and 4, respectively)
+	double warmup_current[5] = { 15, 35, 50, 75, 79 };  // warmup procedure currents for each phase (0, 1, 2, 3, and 4, respectively)
+#define PAUSETIME 9
+
+	// EXPERIMENT DURATION PROCEDURE
+	//----------------------------------------------------------------------------------
+	void experimentProcedure();
+	void refreshDurationTimeDisplay();
+	bool isExperimentRunning = false;
+	bool isExperimentStart = false;
+	int experimentDurationS = 0;
+	int experimentCountS = 0;
+
 
 	//----------------------------------------------------------------------------------
 	//                       SERVICE TIME TIMER & SERIALIZATION I/O
 	//----------------------------------------------------------------------------------
 
-#define RUNTIMEPATH "C:/ProgramData/Amptek_MiniX/"
+#define RUNTIMEPATH "C:/ProgramData/Amptek_MiniX/runtime.txt"	// path to 
 	void serializeRuntime();
 	void deserializeRuntime();
+
 	int total_runtime_seconds;		// the total runtime/service time (in seconds) the MiniX X-Ray has been ON (HVOn)
-	int warmup_count_seconds = 0;   // total time ON during warmup procedure, adds to total_runtime
-	int experiment_count_seconds;   // total time ON during set-duration experiment, adds to total_runtime
 	UINT_PTR tmrRuntime_TimerId;
 	bool tmrRuntime_Enabled;
 	UINT tmrRuntime_Interval;
 #define tmrRuntime_EventId 60
-	afx_msg void OnBnClickedSetandrunminix();
+
+	//----------------------------------------------------------------------------------
+	//									BUTTONS
+	//----------------------------------------------------------------------------------
+	afx_msg void OnBnClickedStartexperimentbutton();
+	afx_msg void OnBnClickedStopexperimentbutton();
+	afx_msg void OnBnClickedBeginwarmup();
+	afx_msg void OnBnClickedStopwarmup();
 };
 
 //{{AFX_INSERT_LOCATION}}

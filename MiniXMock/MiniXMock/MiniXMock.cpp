@@ -33,7 +33,7 @@ void WINAPI OpenMiniX()
 	m_monitor.mxmRefreshed = 1;
 	m_monitor.mxmReserved = 123.456;
 	m_monitor.mxmStatusInd = 2;		// mxstMiniXApplicationReady
-	m_monitor.mxmTemperatureC = 0.0;
+	m_monitor.mxmTemperatureC = 5.0;
 
 	isOpen = 1;
 }
@@ -70,7 +70,6 @@ void WINAPI SendMiniXCommand(byte MiniXCommand)
 			m_monitor.mxmHVOn = false;
 			m_monitor.mxmHighVoltage_kV = 0.0;
 			m_monitor.mxmCurrent_uA = 0.0;
-			m_monitor.mxmTemperatureC = 0.0;
 			break;
 		case mxcSetHVandCurrent:
 			printf("%s", "CMD: SetHvandCurrent\n");
@@ -89,19 +88,21 @@ void WINAPI ReadMiniXMonitor(MiniX_Monitor* MiniXMonitor)
 		//m_monitor.mxmTemperatureC += 1;
 		if (m_monitor.mxmHighVoltage_kV < m_settings.HighVoltage_kV)
 		{
- 			m_monitor.mxmHighVoltage_kV += 5;
+ 			m_monitor.mxmHighVoltage_kV += 2;
 		}
 		if (m_monitor.mxmCurrent_uA < m_settings.Current_uA)
 		{
-			m_monitor.mxmCurrent_uA += 5;
+			m_monitor.mxmCurrent_uA += 3;
 		}
+		m_monitor.mxmTemperatureC += 0.2;
 		//m_monitor.mxmStatusInd = 13;
 	}
 	else
 	{
 		m_monitor.mxmCurrent_uA = 0;
 		m_monitor.mxmHighVoltage_kV = 0;
-		//m_monitor.mxmTemperatureC = 0;
+		if (m_monitor.mxmTemperatureC > 34.0)
+			m_monitor.mxmTemperatureC -= 0.2;
 	}
 
 	*MiniXMonitor = m_monitor;  // initialize return data to defaults

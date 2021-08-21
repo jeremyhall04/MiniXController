@@ -1,9 +1,4 @@
-﻿  StdAfx.cpp
-  ColorControls.cpp
-  Sxbutton.cpp
-  VersionInfo.cpp
-  MiniX.cpp
+﻿  MiniX.cpp
   MiniXDlg.cpp
   Generating Code...
-ColorControls.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
   MiniX.vcxproj -> C:\Users\Jeremy\Desktop\Coding\MiniXProject\vcMiniX\.\Debug\MiniXCtrl.exe
