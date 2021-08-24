@@ -149,6 +149,12 @@ public:
 	//                                                          NEW FUNCTIONS   
 
 	//***************************************************************************************************************************************//
+	typedef enum _ProcedureButtons {
+		mxcStartWarmup		= 32,
+		mxcStopWarmup		= 33,
+		mxcStartExperiment	= 64,
+		mxcStopExperiment	= 65
+	} ProcButtons;
 
 	CColorStatic m_temperatureWarning;	// color control for temperature warning display
 	CColorStatic m_warmupPhaseDisplay;			// color control for warmup phase display
@@ -158,13 +164,14 @@ public:
 	void turnHVOff();
 	void setAndStartMiniX(double voltage, double current);
 	void setAndStartMiniX();
-	void toggleButton(byte buttonID, bool isActive);
+	void EnableMiniX_Commands2(byte mxmEnabledCmds, bool isDisableMonitorCmds);	// new overload function
 	void checkMiniXTemp(double temp, bool is_HVOn);
+	void checkMiniXPower(double powerMW);
 
 	//----------------------------------------------------------------------------------
 	//								EXPERIMENTS & PROCEDURES
 	//----------------------------------------------------------------------------------
-	void updateExperiment();
+	void updateProcedures();
 	UINT_PTR tmrExperiment_TimerId;
 	bool tmrExperiment_Enabled;
 	UINT tmrExperiment_Interval;
@@ -173,20 +180,23 @@ public:
 	// WARMUP PROCEDURE
 	//----------------------------------------------------------------------------------
 	void warmupProcedure();
+	void endWarmup();
 	void displayPhase(int warm_up_phase);
 	CString getTimeInDisplayableFormat(int minutes, int seconds);
 	CString getTimeInDisplayableFormat(int seconds);
 	bool isWarmup = false;
 	bool isStartOfPhase = false;
 	bool isPaused = false;
+	bool isWarmupComplete = false;
 	int phase = 0;							// indicates the current warmup phase (0, 1, 2, 3, or 4)
 	double warmup_voltage[5] = { 15, 25, 35, 45, 50 };  // warmup procedure voltages for each phase (0, 1, 2, 3, and 4, respectively)
 	double warmup_current[5] = { 15, 35, 50, 75, 79 };  // warmup procedure currents for each phase (0, 1, 2, 3, and 4, respectively)
-#define PAUSETIME 9
+#define PAUSETIME 8
 
 	// EXPERIMENT DURATION PROCEDURE
 	//----------------------------------------------------------------------------------
 	void experimentProcedure();
+	void endExperiment();
 	void refreshDurationTimeDisplay();
 	bool isExperimentRunning = false;
 	bool isExperimentStart = false;

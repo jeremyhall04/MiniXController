@@ -402,14 +402,14 @@ void CMiniXDlg::OnBnClickedStartMiniXController()
             GetDlgItem(IDC_SERIAL_NUMBER)->SetWindowText("");
         }
     }
+	TimerControl(tmrRuntime_EventId, true);
+
+    indDisableMonitorCmds = false;
 
 	GetDlgItem(IDC_BEGINWARMUPBUTTON)->EnableWindow(true);
 	GetDlgItem(IDC_STOPWARMUPBUTTON)->EnableWindow(true);
-	GetDlgItem(IDC_STARTEXPERIMENTBUTTON)->EnableWindow(true);	// for debugging
-	GetDlgItem(IDC_STOPEXPERIMENTBUTTON)->EnableWindow(true);
-
-	TimerControl(tmrRuntime_EventId, true);
-    indDisableMonitorCmds = false;
+	//GetDlgItem(IDC_STARTEXPERIMENTBUTTON)->EnableWindow(true);	// for debugging
+	//GetDlgItem(IDC_STOPEXPERIMENTBUTTON)->EnableWindow(true);
 }
 
 void CMiniXDlg::OnBnClickedHvOn()
@@ -423,6 +423,7 @@ void CMiniXDlg::OnBnClickedHvOn()
    //         SendMiniXCommand((byte)mxcHVOn);
    //         Sleep(100);
 			//isHVOn = true;
+			EnableMiniX_Commands2(mxcHVOff, true);
 			setAndStartMiniX();
         }
     }
@@ -438,6 +439,7 @@ void CMiniXDlg::OnBnClickedHvOff()
         Sleep(100);
 		isHVOn = false;*/
 		turnHVOff();
+		EnableMiniX_Commands2(mxcHVOn | mxcStartExperiment | mxcStopExperiment, false);
     }
     indDisableMonitorCmds = false;
 }
@@ -541,7 +543,7 @@ void CMiniXDlg::OnTimer(UINT nIDEvent)
     }	
 	if (nIDEvent == tmrExperiment_TimerId) {
 		if (isExperimentRunning | isWarmup)
-			updateExperiment();
+			updateProcedures();
 	}
 	if (nIDEvent == tmrRuntime_TimerId) {
 		total_runtime_seconds++;
@@ -557,43 +559,45 @@ void CMiniXDlg::UpdateMonitor()
     if (isMiniXDlg()) {
         ReadMiniXMonitor(&MiniXMonitor);
         Sleep(100);
-        if (MiniXMonitor.mxmRefreshed) {             //test if the status was updated
-        if (MiniXMonitor.mxmReserved = 123.456) {    //reserved but always 123.456
-            DisplayDouble(IDC_HIGHVOLTAGEMONITORTEXT,MiniXMonitor.mxmHighVoltage_kV,1);
-            DisplayDouble(IDC_CURRENTMONITORTEXT,MiniXMonitor.mxmCurrent_uA,1);
-            DisplayDouble(IDC_POWER_MW,MiniXMonitor.mxmPower_mW,0);
-            DisplayDouble(IDC_TEMPERATURE_SENSOR,MiniXMonitor.mxmTemperatureC,1);
+        if (MiniXMonitor.mxmRefreshed && MiniXMonitor.mxmReserved == 123.456) {	//test if the status was updated, reserved but always 123.456
+			DisplayDouble(IDC_HIGHVOLTAGEMONITORTEXT,MiniXMonitor.mxmHighVoltage_kV,1);
+			DisplayDouble(IDC_CURRENTMONITORTEXT,MiniXMonitor.mxmCurrent_uA,1);
+			DisplayDouble(IDC_POWER_MW,MiniXMonitor.mxmPower_mW,0);
+			checkMiniXPower(MiniXMonitor.mxmPower_mW);
+			DisplayDouble(IDC_TEMPERATURE_SENSOR,MiniXMonitor.mxmTemperatureC,1);
 			checkMiniXTemp(MiniXMonitor.mxmTemperatureC, MiniXMonitor.mxmHVOn);
-            DisplayStatus(MiniXMonitor.mxmStatusInd);
-            indOldInterlockStatus = indInterlockStatus;
-            indInterlockStatus = MiniXMonitor.mxmInterLock;
-            if (indOldInterlockStatus != indInterlockStatus) {
-                if (indInterlockStatus) {
-                    InterlockDisplay(ilvsRESTORE);
-                    TimerControl(tmrInterLock_EventId,true);
-                } else {
-                    InterlockDisplay(ilvsOPEN);
-                    TimerControl(tmrInterLock_EventId,false);
-                }
-            }
-			EnableMiniX_Commands(MiniXMonitor.mxmEnabledCmds);
-            if (MiniXMonitor.mxmHVOn) {   
-                if (! tmrXRayOn_Enabled) { TimerControl(tmrXRayOn_EventId,true); };
-            } else {
-                if (tmrXRayOn_Enabled) { TimerControl(tmrXRayOn_EventId,false); };
-                if (GetDlgItem(IDC_XRAY_ON_PIC)->IsWindowVisible()) {
-                    GetDlgItem(IDC_XRAY_ON_PIC)->ShowWindow(SW_HIDE);
-                };
-                if (GetDlgItem(IDC_XRAY_ON_LABEL)->IsWindowVisible()) {
-                    GetDlgItem(IDC_XRAY_ON_LABEL)->ShowWindow(SW_HIDE);
-                };
-            }
-            if (MiniXMonitor.mxmOutOfRange) {
-                GetDlgItem(IDC_OUT_OF_RANGE_LBL)->ShowWindow(SW_SHOW);
-            } else {
-                GetDlgItem(IDC_OUT_OF_RANGE_LBL)->ShowWindow(SW_HIDE);
-            }
-        }
+			DisplayStatus(MiniXMonitor.mxmStatusInd);
+			indOldInterlockStatus = indInterlockStatus;
+			indInterlockStatus = MiniXMonitor.mxmInterLock;
+			if (indOldInterlockStatus != indInterlockStatus) {
+				if (indInterlockStatus) {
+					InterlockDisplay(ilvsRESTORE);
+					TimerControl(tmrInterLock_EventId,true);
+				} else {
+					InterlockDisplay(ilvsOPEN);
+					TimerControl(tmrInterLock_EventId,false);
+				}
+			}
+			if (!isWarmupComplete)
+				EnableMiniX_Commands2(mxcStartWarmup | mxcStopWarmup, true);
+			else
+				EnableMiniX_Commands(MiniXMonitor.mxmEnabledCmds);
+			if (MiniXMonitor.mxmHVOn) {   
+				if (! tmrXRayOn_Enabled) { TimerControl(tmrXRayOn_EventId,true); };
+			} else {
+				if (tmrXRayOn_Enabled) { TimerControl(tmrXRayOn_EventId,false); };
+				if (GetDlgItem(IDC_XRAY_ON_PIC)->IsWindowVisible()) {
+					GetDlgItem(IDC_XRAY_ON_PIC)->ShowWindow(SW_HIDE);
+				};
+				if (GetDlgItem(IDC_XRAY_ON_LABEL)->IsWindowVisible()) {
+					GetDlgItem(IDC_XRAY_ON_LABEL)->ShowWindow(SW_HIDE);
+				};
+			}
+			if (MiniXMonitor.mxmOutOfRange) {
+				GetDlgItem(IDC_OUT_OF_RANGE_LBL)->ShowWindow(SW_SHOW);
+			} else {
+				GetDlgItem(IDC_OUT_OF_RANGE_LBL)->ShowWindow(SW_HIDE);
+			}
         }
     }
 }
@@ -682,7 +686,7 @@ void CMiniXDlg::ReadMiniXSetup40kvMiniX(MiniX_Constant *MiniXConstant)
 	MiniXConstant->dblWattageMax = 4.00;							// Wattage Max 
 }
 
-void CMiniXDlg::ReadMiniXSetup50kvMiniX(MiniX_Constant *MiniXConstant)
+void CMiniXDlg::ReadMiniXSetup50kvMiniX(MiniX_Constant *MiniXConstant) // THIS IS THE MINIX
 {
 	MiniXConstant->strTubeType = "Mini-X 50kV 4W";					// Tube Type Name
 	MiniXConstant->lTubeTypeID = 3;								// Tube Type Identifier Index
@@ -850,17 +854,42 @@ void CMiniXDlg::turnHVOff()
 // as well as turns on the Runtime Timer (turnHVOn)
 void CMiniXDlg::setAndStartMiniX(double voltage, double current)
 {
-	//SetMiniXHV(voltage);
-	//Sleep(100);
-	//SetMiniXCurrent(current);
-	//Sleep(100);
-	//turnHVOn();
-
 	turnHVOn();
 	SetMiniXHV(voltage);
 	Sleep(100);
 	SetMiniXCurrent(current);
 	Sleep(100);
+}
+
+// Overload for native EnableMiniX_Commands() function - toggles new buttons & sets indDisableMonitorCmds = isDisableMonitorCmds
+void CMiniXDlg::EnableMiniX_Commands2(byte mxmEnabledCmds, bool isDisableMonitorCmds)
+{
+	bool isStartWarmupBtn;
+	bool isStopWarmupBtn;
+	bool isStartExperimentBtn;
+	bool isStopExperimentBtn;
+
+	isStartWarmupBtn = ((mxmEnabledCmds & mxcStartWarmup) == mxcStartWarmup);
+	isStopWarmupBtn = ((mxmEnabledCmds & mxcStopWarmup) == mxcStopWarmup);
+	isStartExperimentBtn = ((mxmEnabledCmds & mxcStartExperiment) == mxcStartExperiment);
+	isStopExperimentBtn = ((mxmEnabledCmds & mxcStopExperiment) == mxcStopExperiment);
+	mxmEnabledCmds = mxmEnabledCmds & ~mxcStartMiniX;
+
+	GetDlgItem(IDC_BEGINWARMUPBUTTON)->EnableWindow(isStartWarmupBtn);
+	GetDlgItem(IDC_STOPWARMUPBUTTON)->EnableWindow(isStopWarmupBtn);
+	GetDlgItem(IDC_STARTEXPERIMENTBUTTON)->EnableWindow(isStartExperimentBtn);
+	GetDlgItem(IDC_STOPEXPERIMENTBUTTON)->EnableWindow(isStopExperimentBtn);
+
+	if (isDisableMonitorCmds)
+	{
+		EnableMiniX_Commands(mxmEnabledCmds);
+		indDisableMonitorCmds = isDisableMonitorCmds;
+	}
+	else
+	{
+		indDisableMonitorCmds = isDisableMonitorCmds;
+		EnableMiniX_Commands(mxmEnabledCmds);
+	}
 }
 
 // Overload for setAndStartMiniX() - sets and starts the MiniX,
@@ -878,17 +907,8 @@ void CMiniXDlg::setAndStartMiniX()
 	DisplayDouble(IDC_SETCURRENTCONTROLEDIT, MiniXSettings.Current_uA, 0);
 }
 
-void CMiniXDlg::toggleButton(byte buttonID_bit, bool isActive)
-{
-
-}
-
-/* Checks the temperature of the miniX and displays warnings if T > 35C, T = 39C, and 
-* turns off the MiniX at T >= 40C and waits until T < 35 to allow HVOn.
-* 
-* @params temp		temperature of the MiniX
-* @params isHVOn	if High Voltage is on
-*/
+// Checks the temperature of the miniX and displays warnings if T > 35C, T = 39C, and 
+// turns off the MiniX at T >= 40C and waits until T < 35 to allow HVOn.
 void CMiniXDlg::checkMiniXTemp(double temp, bool is_HVOn)
 {
 	static bool max_temp_reached;
@@ -938,18 +958,31 @@ void CMiniXDlg::checkMiniXTemp(double temp, bool is_HVOn)
 	GetDlgItem(IDC_TEMPWARNINGTEXT)->SetWindowText(msg1);
 }
 
+// Changes the background of the power display
+void CMiniXDlg::checkMiniXPower(double powerMW)
+{
+	if (powerMW >= MxDevice.dblHighVoltageMax * MxDevice.dblCurrentMax)
+		m_indWattageMW.SetBkColor(ctrlColYellow);
+	else if (powerMW > 0.0)
+		m_indWattageMW.SetBkColor(ctrlColGreen);
+	else
+		m_indWattageMW.SetBkColor(crBkGnd);
+}
+
+
 //----------------------------------------------------------------------------------
 //								EXPERIMENTS & PROCEDURES
 //----------------------------------------------------------------------------------
 
 // Runs either warmup or experiment procedure on tmrExperiment_Interval = 1000
-void CMiniXDlg::updateExperiment()
+void CMiniXDlg::updateProcedures()
 {
 	if (isExperimentRunning)
 		experimentProcedure();
 	else if (isWarmup)
 		warmupProcedure();
 }
+
 
 // WARMUP PROCEDURE
 //----------------------------------------------------------------------------------
@@ -979,10 +1012,8 @@ void CMiniXDlg::warmupProcedure()
 		}
 		if (total_runtime_seconds - startOfPauseS >= PAUSETIME)
 		{
-			//SendMiniXCommand((byte)mxcHVOff);
-			//Sleep(500);
 			turnHVOff();
-			Sleep(900);
+			Sleep(300);
 			isPaused = false;
 			if (phase < 4)
 			{
@@ -993,12 +1024,10 @@ void CMiniXDlg::warmupProcedure()
 			else
 			{
 				// warmup completed
-				TimerControl(tmrExperiment_EventId, false);
-				isWarmup = false;
-				isStartOfPhase = false;
+				isWarmupComplete = true;
+				endWarmup();
+				EnableMiniX_Commands2(mxcStartExperiment | mxcStopExperiment, false);
 				GetDlgItem(IDC_WARMUPDISPLAY)->SetWindowText("Warm Up Complete");
-				GetDlgItem(IDC_BEGINWARMUPBUTTON)->EnableWindow(false);
-				GetDlgItem(IDC_STOPWARMUPBUTTON)->EnableWindow(false);
 				AfxMessageBox("Warm Up Complete", MB_OK);
 			}
 		}
@@ -1012,10 +1041,19 @@ void CMiniXDlg::warmupProcedure()
 	}
 }
 
-/* Updates the warmup display with the phase values of voltage and current.
-*
-* @param warmu_up_phase: the phase of the warmup
-*/
+// Ends the warmup procedure (turns off HV and Experiment Timer, isWarmup = false, etc.)
+void CMiniXDlg::endWarmup()
+{
+	turnHVOff();
+	TimerControl(tmrExperiment_EventId, false);
+	isWarmup = false;
+	isStartOfPhase = false;
+	isPaused = false;
+	phase = 0;
+	m_warmupPhaseDisplay.SetBkColor(crBkGnd);
+}
+
+// Updates the warmup display with the phase values of voltage and current.
 void CMiniXDlg::displayPhase(int warm_up_phase)
 {
 	double voltage, current;
@@ -1027,6 +1065,7 @@ void CMiniXDlg::displayPhase(int warm_up_phase)
 	DisplayDouble(IDC_SETHIGHVOLTAGECONTROLEDIT, voltage, 0);
 	DisplayDouble(IDC_SETCURRENTCONTROLEDIT, current, 0);
 }
+
 
 // EXPERIMENT DURATION PROCEDURE
 //----------------------------------------------------------------------------------
@@ -1055,14 +1094,21 @@ void CMiniXDlg::experimentProcedure()
 	if (experimentCountS == experimentDurationS)
 	{
 		// end of experiment
-		turnHVOff();
-		isExperimentRunning = false;
-		experimentCountS = 0;
-		TimerControl(tmrExperiment_EventId, false);
-		m_timeRemainingDisplay.SetBkColor(crBkGnd);
+		endExperiment();
 		AfxMessageBox("Experiment Complete.", MB_OK);
 	}
 	refreshDurationTimeDisplay();
+}
+
+// Resets Experiment procedure (turns off HV and Experiment Timer, resets experimentCountS, etc.)
+void CMiniXDlg::endExperiment()
+{
+	turnHVOff();
+	TimerControl(tmrExperiment_EventId, false);
+	isExperimentRunning = false;
+	experimentCountS = 0;
+	m_timeRemainingDisplay.SetBkColor(crBkGnd);
+	EnableMiniX_Commands2(mxcStartExperiment | mxcStopExperiment, false);
 }
 
 // Updates the time remaining display (during SetExperimentDuration)
@@ -1083,11 +1129,7 @@ void CMiniXDlg::refreshDurationTimeDisplay()
 		GetDlgItem(IDC_TIMEREMAININGTEXT)->SetWindowText("00:00:00");
 }
 
-/* Sets and returns the time in CString format (during SetExperimentDuration)
-*
-* @param minutes, seconds:  time remaining in experiment
-* @return s_time:           time remaining in string format
-*/
+// Sets and returns the time in CString format (during SetExperimentDuration)
 CString CMiniXDlg::getTimeInDisplayableFormat(int minutes, int seconds)
 {
 	int hours = 0;
@@ -1134,6 +1176,11 @@ CString CMiniXDlg::getTimeInDisplayableFormat(int seconds)
 	return getTimeInDisplayableFormat(minutes, seconds);
 }
 
+
+//----------------------------------------------------------------------------------
+//                       SERVICE TIME TIMER & SERIALIZATION I/O
+//----------------------------------------------------------------------------------
+
 // Saves the service time of the MiniX in RUNTIMEPATH/runtime.txt
 void CMiniXDlg::serializeRuntime()
 {
@@ -1174,10 +1221,37 @@ void CMiniXDlg::deserializeRuntime()
 	fin.close();
 }
 
+
+//----------------------------------------------------------------------------------
+//									BUTTONS
+//----------------------------------------------------------------------------------
+
+void CMiniXDlg::OnBnClickedBeginwarmup()
+{
+	if (isMiniXDlg())
+	{
+		int msgResponse = AfxMessageBox("Turn X-RAY High Voltage ON for the Warm Up Routine?", MB_YESNO | MB_ICONQUESTION | MB_TOPMOST);
+		if (msgResponse == IDYES)
+		{
+			isWarmup = true;
+			isStartOfPhase = true;
+			m_warmupPhaseDisplay.SetBkColor(ctrlColGreen);
+			TimerControl(tmrExperiment_EventId, true);
+		}
+	}
+}
+
+void CMiniXDlg::OnBnClickedStopwarmup()
+{
+	if (isMiniXDlg())
+	{
+		endWarmup();
+		GetDlgItem(IDC_WARMUPDISPLAY)->SetWindowText("Warm Up Cancelled");
+	}
+}
+
 void CMiniXDlg::OnBnClickedStartexperimentbutton()
 {
-	// TODO: Add your control notification handler code here
-	indDisableMonitorCmds = true;
 	if (isMiniXDlg())
 	{
 		double minutes, seconds, voltage, current;
@@ -1204,67 +1278,22 @@ void CMiniXDlg::OnBnClickedStartexperimentbutton()
 			int msg_check = AfxMessageBox(msg, MB_YESNO);
 			if (msg_check == IDYES)
 			{
-				TimerControl(tmrExperiment_EventId, true);
+				EnableMiniX_Commands2(mxcStopExperiment, true);
 				isExperimentRunning = true;		// trigger updateExperimentTimer()
 				isExperimentStart = true;		// indicate 1st pass 
-				//// Disable Buttons
-				//EnableMiniX_Commands((byte)14);
-				//indDisableMonitorCmds = true;
+				TimerControl(tmrExperiment_EventId, true);
 				setAndStartMiniX(voltage, current);
 			}
 		}
 	}
-	indDisableMonitorCmds = false;
-}
+} 
 
 void CMiniXDlg::OnBnClickedStopexperimentbutton()
 {
-	// TODO: Add your control notification handler code here
 	if (isMiniXDlg()) {
-		turnHVOff();
-		isExperimentRunning = false;
-		experimentCountS = 0;
-		TimerControl(tmrExperiment_EventId, false);
-		m_timeRemainingDisplay.SetBkColor(crBkGnd);
+		endExperiment();
 		GetDlgItem(IDC_TIMEREMAININGTEXT)->SetWindowText("00:00:00");
 		AfxMessageBox("Experiment Cancelled.", MB_OK);
 	}
 }
 
-void CMiniXDlg::OnBnClickedBeginwarmup()
-{
-	indDisableMonitorCmds = true;
-	GetDlgItem(IDC_BEGINWARMUPBUTTON)->EnableWindow(false);
-	if (isMiniXDlg())
-	{
-		int msgResponse = AfxMessageBox("Turn X-RAY High Voltage ON for the Warm Up Routine?", MB_YESNO | MB_ICONQUESTION | MB_TOPMOST);
-		if (msgResponse == IDYES)
-		{
-			TimerControl(tmrExperiment_EventId, true);
-			isWarmup = true;
-			isStartOfPhase = true;
-			m_warmupPhaseDisplay.SetBkColor(ctrlColGreen);
-		}
-	}
-	indDisableMonitorCmds = false;
-}
-
-void CMiniXDlg::OnBnClickedStopwarmup()
-{
-	// TODO: Add your control notification handler code here
-	if (isMiniXDlg())
-	{
-		//SendMiniXCommand((byte)mxcHVOff);
-		//Sleep(100);
-		//isHVOn = false;
-		turnHVOff();
-		TimerControl(tmrExperiment_EventId, false);
-		isWarmup = false;
-		isStartOfPhase = false;
-		isPaused = false;
-		phase = 0;
-		m_warmupPhaseDisplay.SetBkColor(crBkGnd);
-		GetDlgItem(IDC_BEGINWARMUPBUTTON)->EnableWindow(true);
-		GetDlgItem(IDC_WARMUPDISPLAY)->SetWindowText("Warm Up Cancelled");
-	}
-}

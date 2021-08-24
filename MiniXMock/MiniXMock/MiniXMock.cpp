@@ -29,7 +29,7 @@ void WINAPI OpenMiniX()
 	m_monitor.mxmHVOn = 0;
 	m_monitor.mxmInterLock = 0;
 	m_monitor.mxmOutOfRange = 0;
-	m_monitor.mxmPower_mW = 2.0;
+	m_monitor.mxmPower_mW = 0.0;
 	m_monitor.mxmRefreshed = 1;
 	m_monitor.mxmReserved = 123.456;
 	m_monitor.mxmStatusInd = 2;		// mxstMiniXApplicationReady
@@ -88,14 +88,15 @@ void WINAPI ReadMiniXMonitor(MiniX_Monitor* MiniXMonitor)
 		//m_monitor.mxmTemperatureC += 1;
 		if (m_monitor.mxmHighVoltage_kV < m_settings.HighVoltage_kV)
 		{
- 			m_monitor.mxmHighVoltage_kV += 2;
+ 			m_monitor.mxmHighVoltage_kV += 50;
 		}
 		if (m_monitor.mxmCurrent_uA < m_settings.Current_uA)
 		{
-			m_monitor.mxmCurrent_uA += 3;
+			m_monitor.mxmCurrent_uA += 79;
 		}
 		m_monitor.mxmTemperatureC += 0.2;
 		//m_monitor.mxmStatusInd = 13;
+		m_monitor.mxmPower_mW = m_settings.HighVoltage_kV * m_settings.Current_uA;
 	}
 	else
 	{
@@ -103,6 +104,7 @@ void WINAPI ReadMiniXMonitor(MiniX_Monitor* MiniXMonitor)
 		m_monitor.mxmHighVoltage_kV = 0;
 		if (m_monitor.mxmTemperatureC > 34.0)
 			m_monitor.mxmTemperatureC -= 0.2;
+		m_monitor.mxmPower_mW = 0;
 	}
 
 	*MiniXMonitor = m_monitor;  // initialize return data to defaults
