@@ -184,7 +184,7 @@ public:
 	void displayPhase(int warm_up_phase);
 	CString getTimeInDisplayableFormat(int minutes, int seconds);
 	CString getTimeInDisplayableFormat(int seconds);
-	bool isWarmup = false;
+	bool isWarmupRunning = false;
 	bool isStartOfPhase = false;
 	bool isPaused = false;
 	bool isWarmupComplete = false;

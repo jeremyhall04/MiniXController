@@ -408,8 +408,8 @@ void CMiniXDlg::OnBnClickedStartMiniXController()
 
 	GetDlgItem(IDC_BEGINWARMUPBUTTON)->EnableWindow(true);
 	GetDlgItem(IDC_STOPWARMUPBUTTON)->EnableWindow(true);
-	//GetDlgItem(IDC_STARTEXPERIMENTBUTTON)->EnableWindow(true);	// for debugging
-	//GetDlgItem(IDC_STOPEXPERIMENTBUTTON)->EnableWindow(true);
+	GetDlgItem(IDC_STARTEXPERIMENTBUTTON)->EnableWindow(true);	// for debugging
+	GetDlgItem(IDC_STOPEXPERIMENTBUTTON)->EnableWindow(true);
 }
 
 void CMiniXDlg::OnBnClickedHvOn()
@@ -423,7 +423,6 @@ void CMiniXDlg::OnBnClickedHvOn()
    //         SendMiniXCommand((byte)mxcHVOn);
    //         Sleep(100);
 			//isHVOn = true;
-			EnableMiniX_Commands2(mxcHVOff, true);
 			setAndStartMiniX();
         }
     }
@@ -439,7 +438,6 @@ void CMiniXDlg::OnBnClickedHvOff()
         Sleep(100);
 		isHVOn = false;*/
 		turnHVOff();
-		EnableMiniX_Commands2(mxcHVOn | mxcStartExperiment | mxcStopExperiment, false);
     }
     indDisableMonitorCmds = false;
 }
@@ -542,7 +540,7 @@ void CMiniXDlg::OnTimer(UINT nIDEvent)
         }
     }	
 	if (nIDEvent == tmrExperiment_TimerId) {
-		if (isExperimentRunning | isWarmup)
+		if (isExperimentRunning | isWarmupRunning)
 			updateProcedures();
 	}
 	if (nIDEvent == tmrRuntime_TimerId) {
@@ -578,10 +576,7 @@ void CMiniXDlg::UpdateMonitor()
 					TimerControl(tmrInterLock_EventId,false);
 				}
 			}
-			if (!isWarmupComplete)
-				EnableMiniX_Commands2(mxcStartWarmup | mxcStopWarmup, true);
-			else
-				EnableMiniX_Commands(MiniXMonitor.mxmEnabledCmds);
+			EnableMiniX_Commands(MiniXMonitor.mxmEnabledCmds);
 			if (MiniXMonitor.mxmHVOn) {   
 				if (! tmrXRayOn_Enabled) { TimerControl(tmrXRayOn_EventId,true); };
 			} else {
@@ -911,50 +906,24 @@ void CMiniXDlg::setAndStartMiniX()
 // turns off the MiniX at T >= 40C and waits until T < 35 to allow HVOn.
 void CMiniXDlg::checkMiniXTemp(double temp, bool is_HVOn)
 {
-	static bool max_temp_reached;
 	CString msg1 = "", msg2 = "";
-	if (temp < 35)
+	if (is_HVOn)
 	{
-		m_temperatureWarning.SetBkColor(crBkGnd);
-		msg1 = "";
-		if (max_temp_reached)
-		{
-			// Enable the HVOn button
-			indDisableMonitorCmds = false;
-			EnableMiniX_Commands((byte)14);
-			max_temp_reached = false;
+		if (temp >= 40) {
+			turnHVOff();
+			AfxMessageBox("MINIX STOPPED DUE TO OVERHEATING\nTemperatures exceeding 39 degrees celcius were reached.");
+		}
+		else if (temp >= 39) {
+			msg1 = "WARNING: TEMPERATURE AT 39C (STOP AT 40C)";
+			m_temperatureWarning.SetBkColor(ctrlColYellow);
+		}
+		else if (temp >= 35) {
+			msg1 = "WARNING: TEMPERATURE > 35C";
+			m_temperatureWarning.SetBkColor(ctrlColYellow);
 		}
 	}
 	else
-	{
-		if (is_HVOn)
-		{
-			m_temperatureWarning.SetBkColor(ctrlColYellow);
-			if (temp >= 40) {
-				turnHVOff();
-				// Disable HVOn button
-				EnableMiniX_Commands((byte)12);
-				indDisableMonitorCmds = true;
-				msg1 = "MAX TEMP REACHED || STOPPING MINIX";
-				max_temp_reached = true;
-				AfxMessageBox("MINIX STOPPED DUE TO OVERHEATING\nTemperatures exceeding 39 degrees celcius were reached.");
-			}
-			else if (temp >= 39) {
-				msg1 = "WARNING: TEMPERATURE AT 39C (STOP AT 40C)";
-			}
-			else if (temp >= 35) {
-				msg1 = "WARNING: TEMPERATURE > 35C";
-			}
-		}
-		else if (max_temp_reached)
-		{
-			m_temperatureWarning.SetBkColor(ctrlColYellow);
-			msg1 = "COOLING DOWN - HVON BUTTON DISABLED";
-		}
-		else
-			m_temperatureWarning.SetBkColor(crBkGnd);
-	}
-
+		m_temperatureWarning.SetBkColor(crBkGnd);
 	GetDlgItem(IDC_TEMPWARNINGTEXT)->SetWindowText(msg1);
 }
 
@@ -969,7 +938,6 @@ void CMiniXDlg::checkMiniXPower(double powerMW)
 		m_indWattageMW.SetBkColor(crBkGnd);
 }
 
-
 //----------------------------------------------------------------------------------
 //								EXPERIMENTS & PROCEDURES
 //----------------------------------------------------------------------------------
@@ -979,10 +947,9 @@ void CMiniXDlg::updateProcedures()
 {
 	if (isExperimentRunning)
 		experimentProcedure();
-	else if (isWarmup)
+	else if (isWarmupRunning)
 		warmupProcedure();
 }
-
 
 // WARMUP PROCEDURE
 //----------------------------------------------------------------------------------
@@ -1026,7 +993,9 @@ void CMiniXDlg::warmupProcedure()
 				// warmup completed
 				isWarmupComplete = true;
 				endWarmup();
-				EnableMiniX_Commands2(mxcStartExperiment | mxcStopExperiment, false);
+				GetDlgItem(IDC_BEGINWARMUPBUTTON)->EnableWindow(false);
+				GetDlgItem(IDC_STOPWARMUPBUTTON)->EnableWindow(false);
+				//EnableMiniX_Commands2(mxcStartExperiment | mxcStopExperiment, false);
 				GetDlgItem(IDC_WARMUPDISPLAY)->SetWindowText("Warm Up Complete");
 				AfxMessageBox("Warm Up Complete", MB_OK);
 			}
@@ -1046,7 +1015,7 @@ void CMiniXDlg::endWarmup()
 {
 	turnHVOff();
 	TimerControl(tmrExperiment_EventId, false);
-	isWarmup = false;
+	isWarmupRunning = false;
 	isStartOfPhase = false;
 	isPaused = false;
 	phase = 0;
@@ -1108,7 +1077,9 @@ void CMiniXDlg::endExperiment()
 	isExperimentRunning = false;
 	experimentCountS = 0;
 	m_timeRemainingDisplay.SetBkColor(crBkGnd);
-	EnableMiniX_Commands2(mxcStartExperiment | mxcStopExperiment, false);
+	//EnableMiniX_Commands2(mxcStartExperiment | mxcStopExperiment, false);
+	GetDlgItem(IDC_STARTEXPERIMENTBUTTON)->EnableWindow(true);
+	GetDlgItem(IDC_STOPEXPERIMENTBUTTON)->EnableWindow(true);
 }
 
 // Updates the time remaining display (during SetExperimentDuration)
@@ -1233,7 +1204,7 @@ void CMiniXDlg::OnBnClickedBeginwarmup()
 		int msgResponse = AfxMessageBox("Turn X-RAY High Voltage ON for the Warm Up Routine?", MB_YESNO | MB_ICONQUESTION | MB_TOPMOST);
 		if (msgResponse == IDYES)
 		{
-			isWarmup = true;
+			isWarmupRunning = true;
 			isStartOfPhase = true;
 			m_warmupPhaseDisplay.SetBkColor(ctrlColGreen);
 			TimerControl(tmrExperiment_EventId, true);
@@ -1278,7 +1249,6 @@ void CMiniXDlg::OnBnClickedStartexperimentbutton()
 			int msg_check = AfxMessageBox(msg, MB_YESNO);
 			if (msg_check == IDYES)
 			{
-				EnableMiniX_Commands2(mxcStopExperiment, true);
 				isExperimentRunning = true;		// trigger updateExperimentTimer()
 				isExperimentStart = true;		// indicate 1st pass 
 				TimerControl(tmrExperiment_EventId, true);

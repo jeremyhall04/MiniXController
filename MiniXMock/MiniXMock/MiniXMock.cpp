@@ -33,7 +33,7 @@ void WINAPI OpenMiniX()
 	m_monitor.mxmRefreshed = 1;
 	m_monitor.mxmReserved = 123.456;
 	m_monitor.mxmStatusInd = 2;		// mxstMiniXApplicationReady
-	m_monitor.mxmTemperatureC = 5.0;
+	m_monitor.mxmTemperatureC = 0.0;
 
 	isOpen = 1;
 }
